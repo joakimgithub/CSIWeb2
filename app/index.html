@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My AngularJS App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" >Sogeti CSIWeb</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+              <form class="navbar-form navbar-right">
+                  <div class="form-group">
+                      <input type="text" placeholder="Email" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <input type="password" placeholder="Password" class="form-control">
+                  </div>
+                  <button type="submit" class="btn btn-success">Sign in</button>
+              </form>
+          </div><!--/.navbar-collapse -->
+      </div>
+  </nav>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+      <div class="container">
+          <h2>CSI - Customer Satisfaction Index</h2>
+          <img alt="Brand" src="assets/img/Sogeti-liten.png" class="img-responsive">
+          <h3>Quality is the way to go!</h3>
+          <p><a class="btn btn-primary btn-sm" href="#!/customerView" role="button">Home &raquo;</a></p>
+      </div>
+  </div>
+
+<!--test meny-->
+  <!--<ul class="menu">
+    <li><a href="#!/allCustomersView">Show Customers</a></li>
+    <li><a href="#!/allCsisForCustomerView">Show csis</a></li>
+    <li><a href="#!/csiView">Show csi</a></li>
+  </ul>-->
+
+  <div ng-view></div>
+
+  <!-- Sticky footer-->
+  <footer class="footer">
+      <div class="container">
+          <p class="text-muted">&copy; 2016 Sogeti Sverige AB. Tel: 08 5368 2000</p>
+      </div>
+  </footer>
+
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+  <script src="allCustomersView/allCustomersView.js"></script>
+  <script src="allCsisForCustomerView/allCsisForCustomerView.js"></script>
+  <script src="csiView/csiView.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!-- Customers Table (allCsisForCustomerViewCtrl) -->
+<div ng-app="myApp.allCsisForCustomerView" ng-controller="allCsisForCustomerViewCtrl">
+    <div class="table-responsive table-hover table-striped">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ProjectNumber</th>
+                    <th>Engagement</th>
+                    <th>DeliveryUnit</th>
+                    <th>InitiationDate</th>
+                    <th>Consultans</th>
+                    <th>PlannedDateForFollowUp</th>
+                    <th>ContactName</th>
+                    <th>ContactEmail</th>
+                    <th>AccountManagerName</th>
+                    <th>AccountManagerEmail</th>
+                    <th>Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in CSIs">
+                    <td>{{ x.ProjectNumber}}</td>
+                    <td><a href="#!/csiView">{{ x.Engagement }}</a></td>
+                    <td>{{ x.DeliveryUnit }}</td>
+                    <td>{{ x.InitiationDate  | date : "yyyy-MM-dd hh:mm" }}</td>
+                    <td>{{ x.Consultans }}</td>
+                    <td>{{ x.PlannedDateForFollowUp  | date : "yyyy-MM-dd hh:mm" }}</td>
+                    <td>{{ x.ContactName }}</td>
+                    <td>{{ x.ContactEmail }}</td>
+                    <td>{{ x.AccountManagerName }}</td>
+                    <td>{{ x.AccountManagerEmail }}</td>
+                    <td>{{ x.Id }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

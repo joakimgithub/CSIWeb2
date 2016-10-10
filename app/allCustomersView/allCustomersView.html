@@ -1,0 +1,26 @@
+<!-- Customers Table (allCustomersViewCtrl) -->
+<div ng-app="myApp.allCustomersView" ng-controller="allCustomersViewCtrl">
+    <div class="table-responsive table-hover table-striped">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Created date</th>
+                    <th>Created by</th>
+                    <th>Active</th>
+                    <th>Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in customers">
+                    <td><a href="#!/allCsisForCustomerView">{{ x.Customer }}</a></td>
+                    <td>{{ x.CreatedTime | date : "yyyy-MM-dd hh:mm" }}</td>
+                    <td>{{ x.CreatedBy }}</td>
+                    <td>{{ x.Active }}</td>
+                    <td>{{ x.Id}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
