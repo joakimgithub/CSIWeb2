@@ -1,3 +1,93 @@
-<!-- Customers Table (allCustomersViewCtrl) -->
-<img alt="Brand" src="assets/img/csi_exampel_se.png" class="img-responsive">
+        <div class="container-fluid ">
+            <img class="img-responsive" src="assets/img/QQCSI_top_noheadline.png" alt="Sogeti">
+        </div>
 
+        <div ng-app="csiView" id="tblCSIQCs" ng-controller="CsiQualityCriteriaController">
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">Quality Criteria</th>
+                        <th class="col-md-2">Importance</th>
+                        <th class="col-md-2">Value</th>
+                        <th class="col-md-2">Value * Importance</th>
+                        <th class="col-md-2">Importance * 5</th>
+                    </tr>
+                </thead>
+
+                <tbody ng-repeat="csiQC in csiQualityCriterias">
+                    <tr>
+                        <td class="col-md-4">{{csiQC.QualityCriteria}}</td>
+                        <td class="col-md-2">{{csiQC.Importance}}</td>
+                        <td class="col-md-2">{{csiQC.Value}}</td>
+                        <td class="col-md-2">{{csiQC.Value * csiQC.Importance}}</td>
+                        <td class="col-md-2">{{csiQC.Importance * 5}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+        </div>
+
+        <div ng-app="csiView" id="CSIMainContext" ng-controller="CsiMainInformationController"class="container-fluid ">
+            <div class="row ">
+                <div class="col-md-6 ">
+                    <hr>
+                    <h2>Initiering</h2>
+                    <table class="table-responsive">
+                        <tr>
+                            <td class="col-md-2"><label>Initierad av Kund:</label></td>
+                            <td class="col-md-4">{{csi.InitiatedByClient}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Kund:</label></td>
+                            <td class="col-md-4">{{csi.ClientName}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Email:</label></td>
+                            <td class="col-md-4">{{csi.ClientEmail}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Säljare:</label></td>
+                            <td class="col-md-4">{{csi.AccountManagerName}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Email:</label></td>
+                            <td class="col-md-4">{{csi.AccountManagerEmail}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-6 ">
+                    <hr>
+                    <h2>Uppföljning</h2>
+                    <table class="table-responsive">
+                        <tr>
+                            <td class="col-md-2"><label>Folloed-up by (Client):</label></td>
+                            <td class="col-md-4">{{csi.FollowedUpByClient}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Kund:</label></td>
+                            <td class="col-md-4">{{csi.FollowedUpDate}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Date for follow-up:</label></td>
+                            <td class="col-md-4">{{csi.ClientEmail}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Säljare:</label></td>
+                            <td class="col-md-4">{{csi.AccountManagerName}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2"><label>Email:</label></td>
+                            <td class="col-md-4">{{csi.AccountManagerEmail}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div csi-text>Test</div>
+<!--
+        <div id="CSIText" ng-controller="CsiExplainationTextController">
+            {{explainationText}}
+        </div>
+-->

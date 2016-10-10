@@ -12,4 +12,24 @@ angular.module('myApp.csiView', ['ngRoute'])
     .then(function(response) {
         $scope.customers = response.data;
     });
+})
+
+.directive("csiView/csiText", function() {
+    return {
+        restrict: 'A',
+        templateUrl: 'csi-text.html'
+    };
 });
+
+//CsiQualityCriteriaController
+//
+//.(function () {
+//
+//    app = angular.module("CsiApp", []);
+//    app.directive("csiText", function() {
+//        return {
+//            restrict: 'A',
+//            templateUrl: 'csi-text.html'
+//        };
+//    });
+//}());
