@@ -14,7 +14,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="x in customers">
-                    <td><a href="#!/allCsisForCustomerView">{{ x.Customer }}</a></td>
+                    <script>var cust = {{ x.Customer }};</script>
+                    <td><a href="#!/allCsisForCustomerView"?cust='cust123'>{{ x.Customer }}</a></td>
                     <td>{{ x.CreatedTime | date : "yyyy-MM-dd hh:mm" }}</td>
                     <td>{{ x.CreatedBy }}</td>
                     <td>{{ x.Active }}</td>
