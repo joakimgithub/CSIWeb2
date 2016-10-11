@@ -15,13 +15,13 @@
 //    });
 //});
 
-//var csiView = angular.module('myApp.csiView', ['ngRoute']);
-//csiView.config(function ($routeProvider) {
-//    $routeProvider.when('/csiView', {
-//        templateUrl: 'csiView/csiView.html',
-//        controller: 'CsiMainInformationController'
-//    });
-//});
+var csiView = angular.module('myApp.csiView', ['ngRoute']);
+csiView.config(function ($routeProvider) {
+    $routeProvider.when('/csiView', {
+        templateUrl: 'csiView/csiView.html',
+        controller: 'CsiMainInformationController'
+    });
+});
 
 
 //csiView.controller('csiViewCtrl', function ($scope, $http) {
