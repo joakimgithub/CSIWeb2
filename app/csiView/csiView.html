@@ -1,89 +1,149 @@
-        <div class="container-fluid ">
-            <img class="img-responsive" src="assets/img/QQCSI_top_noheadline.png" alt="Sogeti">
-        </div>
 
-        <div ng-app="myApp.csiView" id="tblCSIQCs" ng-controller="CsiQualityCriteriaController">
-            <table class="table-responsive">
+    <div ng-app="CsiView">
+        <div class="container-fluid ">
+            <img class="img-responsive" src="Images/Sogeti.png" alt="Sogeti">
+        </div>
+        <p></p>
+        <div id="tblCSIQCs" ng-controller="CsiQualityCriteriaController">
+
+            <table class="table table-responsive table-hover">
                 <thead>
                     <tr>
-                        <th class="col-md-4">Quality Criteria</th>
-                        <th class="col-md-2">Importance</th>
-                        <th class="col-md-2">Value</th>
-                        <th class="col-md-2">Value * Importance</th>
-                        <th class="col-md-2">Importance * 5</th>
+                        <th style="border-bottom: 1px solid #000;" class="col-md-4">Quality Criteria</th>
+                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance</th>
+                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Value</th>
+                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Value * Importance</th>
+                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance * 5</th>
                     </tr>
                 </thead>
 
                 <tbody ng-repeat="csiQC in csiQualityCriterias">
                     <tr>
-                        <td class="col-md-4">{{csiQC.QualityCriteria}}</td>
-                        <td class="col-md-2">{{csiQC.Importance}}</td>
-                        <td class="col-md-2">{{csiQC.Value}}</td>
-                        <td class="col-md-2">{{csiQC.Value * csiQC.Importance}}</td>
-                        <td class="col-md-2">{{csiQC.Importance * 5}}</td>
+                        <td style="border-bottom: 1px solid #000;" class="col-md-4">{{csiQC.QualityCriteria}}</td>
+                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance}}</td>
+                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value}}</td>
+                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value * csiQC.Importance}}</td>
+                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance * 5}}</td>
                     </tr>
                 </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul class = "list-unstyled">
+                                <li><small>1 least important</small></li>
+                                <li><small>2 less important</small></li>
+                                <li><small>3 medium important</small></li>
+                                <li><small>4 more important</small></li>
+                                <li><small>5 most important</small></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class = "list-unstyled">
+                                <li><small>1 poor</small></li>
+                                <li><small>2 litle value</small></li>
+                                <li><small>3 approved</small></li>
+                                <li><small>4 good</small></li>
+                                <li><small>5 very good</small></li>
+                            </ul>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
-            <hr>
+<!-- Sparar dessa funktionsanrop till kontrollern som exempel, se även controllern CSIQualityCriteria       -->
+<!--            {{ totalImpVal() }}  {{ totalImp5() }} {{ qualityValue() }}                                 -->
         </div>
 
-        <div ng-app="myApp.csiView" id="CSIMainContext" ng-controller="CsiMainInformationController"class="container-fluid ">
+        <div id="CSIMainContext" ng-controller="CsiMainInformationController"class="container-fluid ">
             <div class="row ">
                 <div class="col-md-6 ">
-                    <hr>
+                <hr style ="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0;">
                     <h2>Initiering</h2>
                     <table class="table-responsive">
                         <tr>
-                            <td class="col-md-2"><label>Initierad av Kund:</label></td>
-                            <td class="col-md-4">{{csi.InitiatedByClient}}</td>
+                            <td class="col-md-3"><label>Initiated by (client):</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.InitiatedByClient}}</td>
                         </tr>
                         <tr>
-                            <td class="col-md-2"><label>Kund:</label></td>
-                            <td class="col-md-4">{{csi.ClientName}}</td>
+                            <td class="col-md-3"><label>Client:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.ClientName}}</td>
                         </tr>
                         <tr>
-                            <td class="col-md-2"><label>Email:</label></td>
-                            <td class="col-md-4">{{csi.ClientEmail}}</td>
+                            <td class="col-md-3"><label>Email:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.ClientEmail}}</td>
                         </tr>
                         <tr>
-                            <td class="col-md-2"><label>Säljare:</label></td>
-                            <td class="col-md-4">{{csi.AccountManagerName}}</td>
+                            <td class="col-md-3"><label>Account Manager:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.AccountManagerName}}</td>
                         </tr>
                         <tr>
-                            <td class="col-md-2"><label>Email:</label></td>
-                            <td class="col-md-4">{{csi.AccountManagerEmail}}</td>
+                            <td class="col-md-3"><label>Email:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.AccountManagerEmail}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><label>Project number (GFS):</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.ProjectNumber}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><label>Engagement:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.Engagement}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><label>Delivery unit:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.DeliveryUnit}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><label>InitiationDate:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.InitiationDate}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><label>Planned date for follow-up:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.PlannedDateForFollowUp}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><label>Consultan(s):</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.Consultants}}</td>
                         </tr>
                     </table>
                 </div>
 
                 <div class="col-md-6 ">
-                    <hr>
-                    <h2>Uppföljning</h2>
+                <hr style ="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0;">
+                    <h2>Follow-up</h2>
                     <table class="table-responsive">
                         <tr>
-                            <td class="col-md-2"><label>Folloed-up by (Client):</label></td>
-                            <td class="col-md-4">{{csi.FollowedUpByClient}}</td>
+                            <td class="col-md-3"><label>Follwed-up by (Client):</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.FollowedUpByClient}}</td>
                         </tr>
                         <tr>
-                            <td class="col-md-2"><label>Kund:</label></td>
-                            <td class="col-md-4">{{csi.FollowedUpDate}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-2"><label>Date for follow-up:</label></td>
-                            <td class="col-md-4">{{csi.ClientEmail}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-2"><label>Säljare:</label></td>
-                            <td class="col-md-4">{{csi.AccountManagerName}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-2"><label>Email:</label></td>
-                            <td class="col-md-4">{{csi.AccountManagerEmail}}</td>
+                            <td class="col-md-3"><label>Date for follow-up:</label></td>
+                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.FollowedUpDate}}</td>
                         </tr>
                     </table>
+                    <p></p>
+
+                            <table class="table table-responsive table-bordered table-hover">
+                                <tr>
+                                    <td class="col-md-4"><label>A: Total (Importance * Value)</label></td>
+                                    <td class="col-md-2">{{ShareData.totalIV}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4"><label>B: Total (Value *5)</label></td>
+                                    <td class="col-md-2">{{ShareData.totalV5}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4"><label>Quality value (A/B * 5)</label></td>
+                                    <td class="col-md-2">{{ShareData.total}}</td>
+                                </tr>
+                            </table>
                 </div>
             </div>
         </div>
+
+        <hr>
 
         <div csi-text>Test</div>
 <!--
@@ -91,3 +151,4 @@
             {{explainationText}}
         </div>
 -->
+        </div>
