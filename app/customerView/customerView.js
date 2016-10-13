@@ -16,9 +16,9 @@
         $scope.customers = response.data;
     });
 
-    // $scope.sortBy = 'name'; // default value
-    // $scope.sortDescending = false; // default ascending
-    // $scope.searchText = ''; // default blank
+    $scope.sortBy = 'Customer'; // default value
+    $scope.sortDescending = false; // default ascending
+    $scope.searchText = ''; // default blank
 
     $scope.customersTest = [
         { 'name': 'Ali Adravi', 'gendar': 'Male', 'age': 33, 'salary': 123400 },
