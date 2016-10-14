@@ -4,7 +4,7 @@
 var app = angular.module('myApp', [
     'ngRoute',
     'myApp.customerView',
-    'myApp.allCsisForCustomerView',
+    'myApp.customerCsisView',
     'myApp.csiView'
 ])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
