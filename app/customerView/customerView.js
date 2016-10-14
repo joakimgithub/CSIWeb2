@@ -12,7 +12,7 @@
     $scope.pageTitle = 'Customers';
     $scope.CustData = SharedCustomerService;
 
-    $http.get('http://a01c01101c/CSIService/api/GetCustomerList')
+    $http.get('http://a01c01263c/CSIService/api/GetCustomerList')
     .then(function(response) {
         $scope.customers = response.data;
     });

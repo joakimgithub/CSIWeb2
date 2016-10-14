@@ -56,7 +56,7 @@
         </tr>
         <tr class="animate"
             ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending ">
-            <td><a ng-href="#!/allCsisForCustomerView/?custId={{customer.Id}}" ng-bind="customer.Customer"></a></td>
+            <td><a ng-href="#!/allCsisForCustomerView/?id={{customer.Id}}" ng-bind="customer.Customer"></a></td>
             <!--<td><a ng-href="/customer/{{customer.Id}}" ng-bind="customer.Customer"></a></td>-->
             <td ng-bind="customer.CreatedTime | date:'yyyy-MM-dd hh:mm'"></td>
             <td ng-bind="customer.CreatedBy"></td>
