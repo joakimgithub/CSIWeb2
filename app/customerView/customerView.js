@@ -11,7 +11,7 @@
     
     $scope.pageTitle = 'Customers';
 
-    $http.get('http://a01c01263c/CSIService/api/CSI_Customer')
+    $http.get('http://a01c01263c/CSIService/api/GetCustomerList')
     .then(function(response) {
         $scope.customers = response.data;
     });

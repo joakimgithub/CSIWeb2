@@ -9,7 +9,7 @@ angular.module('myApp.allCsisForCustomerView', ['ngRoute'])
   });
 }])
 .controller('allCsisForCustomerViewCtrl', function($scope, $http) {
-    $http.get('http://a01c01263c/CSIService/api/CSIs/Customer/1')
+    $http.get('http://a01c01101c/CSIService/api/GetCSIListForCustomer/1')
     .then(function(response) {
         $scope.CSIs = response.data;
     });
