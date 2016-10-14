@@ -9,7 +9,7 @@ angular.module('myApp.csiView', ['ngRoute'])
     }])
 
     // *** Directives ***
-    // Directive csiText
+    // Directive för text <div csi-text></div>
     .directive("csiText", function() {
         return {
             restrict: 'A',
@@ -148,5 +148,14 @@ angular.module('myApp.csiView', ['ngRoute'])
         };
 
         getCSIMainData();
+
+        // Print
+        $scope.printTo = function (printSectionId) {
+                var innerContents = document.getElementById(printSectionId).innerHTML;
+                var popupWinindow = window.open('', '_blank','width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+                popupWinindow.document.open();
+                popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+                popupWinindow.document.close();
+        }
 
     }]); // End CsiMainInformationService

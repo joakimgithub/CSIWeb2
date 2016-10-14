@@ -1,61 +1,64 @@
-    <div ng-app="myApp.csiView">
+    <div id="printSectionId" ng-app="myApp.csiView">
         <div class="container-fluid ">
             <img class="img-responsive" src="/app/assets/img/QQCSI_top.PNG" alt="Sogeti">
         </div>
         <p></p>
         <div id="tblCSIQCs" ng-controller="CsiQualityCriteriaController">
+            <div class="row ">
+                <div class="col-md-12">
+                    <table class="table table-responsive table-hover">
+                        <thead>
+                            <tr>
+                                <th style="border-bottom: 1px solid #000;" class="col-md-4">Quality Criteria</th>
+                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance</th>
+                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Value</th>
+                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Value * Importance</th>
+                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance * 5</th>
+                            </tr>
+                        </thead>
 
-            <table class="table table-responsive table-hover">
-                <thead>
-                    <tr>
-                        <th style="border-bottom: 1px solid #000;" class="col-md-4">Quality Criteria</th>
-                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance</th>
-                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Value</th>
-                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Value * Importance</th>
-                        <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance * 5</th>
-                    </tr>
-                </thead>
+                        <tbody ng-repeat="csiQC in csiQualityCriterias">
+                            <tr>
+                                <td style="border-bottom: 1px solid #000;" class="col-md-4">{{csiQC.QualityCriteria}}</td>
+                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance}}</td>
+                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value}}</td>
+                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value * csiQC.Importance}}</td>
+                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance * 5}}</td>
+                            </tr>
+                        </tbody>
 
-                <tbody ng-repeat="csiQC in csiQualityCriterias">
-                    <tr>
-                        <td style="border-bottom: 1px solid #000;" class="col-md-4">{{csiQC.QualityCriteria}}</td>
-                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance}}</td>
-                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value}}</td>
-                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value * csiQC.Importance}}</td>
-                        <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance * 5}}</td>
-                    </tr>
-                </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <ul class = "list-unstyled">
+                                        <li><small>1 least important</small></li>
+                                        <li><small>2 less important</small></li>
+                                        <li><small>3 medium important</small></li>
+                                        <li><small>4 more important</small></li>
+                                        <li><small>5 most important</small></li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class = "list-unstyled">
+                                        <li><small>1 poor</small></li>
+                                        <li><small>2 litle value</small></li>
+                                        <li><small>3 approved</small></li>
+                                        <li><small>4 good</small></li>
+                                        <li><small>5 very good</small></li>
+                                    </ul>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+        <!-- Sparar dessa funktionsanrop till kontrollern som exempel, se även controllern CSIQualityCriteria       -->
+        <!--            {{ totalImpVal() }}  {{ totalImp5() }} {{ qualityValue() }}                                 -->
 
-                <tfoot>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <ul class = "list-unstyled">
-                                <li><small>1 least important</small></li>
-                                <li><small>2 less important</small></li>
-                                <li><small>3 medium important</small></li>
-                                <li><small>4 more important</small></li>
-                                <li><small>5 most important</small></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul class = "list-unstyled">
-                                <li><small>1 poor</small></li>
-                                <li><small>2 litle value</small></li>
-                                <li><small>3 approved</small></li>
-                                <li><small>4 good</small></li>
-                                <li><small>5 very good</small></li>
-                            </ul>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
-<!-- Sparar dessa funktionsanrop till kontrollern som exempel, se även controllern CSIQualityCriteria       -->
-<!--            {{ totalImpVal() }}  {{ totalImp5() }} {{ qualityValue() }}                                 -->
+                </div>
+            </div>
         </div>
-
         <div id="CSIMainContext" ng-controller="CsiMainInformationController" class="container-fluid ">
             <div class="row ">
                 <div class="col-md-6 ">
@@ -141,10 +144,7 @@
                 </div>
             </div>
         </div>
-
-        <hr>
-
-        <div csi-text>Test</div>
+        <div csi-text></div>
 
         </div>
 
