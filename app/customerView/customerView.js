@@ -7,11 +7,12 @@
   });
 }])
 
-.controller("customerCtrl", ['$scope', '$http', function ($scope, $http) {
+.controller("customerCtrl", ['$scope', '$http', 'SharedCustomerService', function ($scope, $http, SharedCustomerService) {
     
     $scope.pageTitle = 'Customers';
+    $scope.CustData = SharedCustomerService;
 
-    $http.get('http://a01c01263c/CSIService/api/GetCustomerList')
+    $http.get('http://a01c01101c/CSIService/api/GetCustomerList')
     .then(function(response) {
         $scope.customers = response.data;
     });
@@ -29,4 +30,14 @@
         { 'name': 'Angelina Jolie', 'gendar': 'Femal', 'age': 33, 'salary': 9900000 },
     ];
 
-}]);
+}])
+
+// *** Services ***
+// Service SharedCustomerService
+.service('SharedCustomerService', function () {
+    'use strict';
+    var CustData = {
+            id: 1
+          };
+    return CustData;
+})  // End SharedDataService
