@@ -1,10 +1,4 @@
-﻿    <h1 ng-bind="pageTitle"></h1>
-
-    <!--<div class="alert alert-info">
-        <div>Sort By: {{sortBy}}</div>
-        <div>Descending: {{sortDescending}}</div>
-        <div>Search Text: {{searchText}}</div>
-    </div>-->
+    <h1 ng-bind="pageTitle"></h1>
 
     <div class="input-group">
         <input type="text" 
@@ -56,8 +50,7 @@
         </tr>
         <tr class="animate"
             ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending ">
-            <td><a ng-href="#!/allCsisForCustomerView" ng-bind="customer.Customer"></a></td>
-            <!--<td><a ng-href="/customer/{{customer.Id}}" ng-bind="customer.Customer"></a></td>-->
+            <td><a ng-href="#!/customerCsisView/?id={{customer.Id}}" ng-bind="customer.Customer"></a></td>
             <td ng-bind="customer.CreatedTime | date:'yyyy-MM-dd hh:mm'"></td>
             <td ng-bind="customer.CreatedBy"></td>
             <td ng-bind="customer.Active"></td>

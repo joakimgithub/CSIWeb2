@@ -5,9 +5,14 @@ var app = angular.module('myApp', [
     'ngRoute',
     'ngAnimate',
     'myApp.customerView',
+<<<<<<< HEAD
     'myApp.allCsisForCustomerView',
     'myApp.csiView',
     'myApp.csiCrudView'
+=======
+    'myApp.customerCsisView',
+    'myApp.csiView'
+>>>>>>> origin/master
 ])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
