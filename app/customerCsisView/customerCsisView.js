@@ -12,10 +12,10 @@ angular.module('myApp.customerCsisView', [])
 .controller('customerCsisViewCtrl',
   ['$scope', '$http',  '$routeParams', function($scope, $http, $routeParams)
      {
-//       $http.get('http://a01c01263c/CSIService/api/GetCSIListForCustomer/' + $routeParams.id)
-//       .then(function(response) {
-//           $scope.CSIs = response.data;
-//       });
+      $http.get('http://a01c01263c/CSIService/api/GetCSIListForCustomer/' + $routeParams.id)
+      .then(function(response) {
+          $scope.CSIs = response.data;
+      });
 
 
 // test data
