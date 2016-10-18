@@ -45,7 +45,7 @@ angular.module('myApp.csiView', ['ngRoute'])
     .service("CsiMainInformationService", function ($http) {
         'use strict';
         this.getCSI = function () {
-            var url = 'http://A01C01101C//CSIService/api/CSIs/1';
+            var url = 'http://A01C01101C//CSIService/api/GetCSI/1';
             return $http.get(url).then(function (response) {
                 return response.data;
             });
@@ -149,13 +149,25 @@ angular.module('myApp.csiView', ['ngRoute'])
 
         getCSIMainData();
 
-        // Print
-        $scope.printTo = function (printSectionId) {
-                var innerContents = document.getElementById(printSectionId).innerHTML;
-                var popupWinindow = window.open('', '_blank','width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
-                popupWinindow.document.open();
-                popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
-                popupWinindow.document.close();
-        }
+        // PDF
+        $scope.openPdf = function() {
+            pdfMake.createPdf(docDefinition).open();
+        };
+
+        $scope.downloadPdf = function() {
+            html2canvas(document.getElementById('exportthis'), {
+            onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500,
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Csi.pdf");
+                }
+            });
+        };
+
 
     }]); // End CsiMainInformationService

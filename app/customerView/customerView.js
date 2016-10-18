@@ -1,4 +1,4 @@
-﻿angular.module('myApp.customerView', [])
+angular.module('myApp.customerView', [])
 
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/customerView', {
@@ -11,7 +11,7 @@
     
     $scope.pageTitle = 'Customers';
 
-    $http.get('http://a01c01263c/CSIService/api/GetCustomerList')
+    $http.get('http://a01c01101c/CSIService/api/GetCustomerList')
     .then(function(response) {
         $scope.customers = response.data;
     });
