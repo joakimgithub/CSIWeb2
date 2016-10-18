@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <img class="img-responsive" src="/app/assets/img/QQCSI_top_noheadline.PNG" alt="Sogeti">
+</div>
+<div class="row">
+    <div class="col-md-12">
+<!--    <hr style ="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0;">-->
+        <h3 class="modal-body">Initiering</h3>
+        <table class="table-responsive modal-content">
+            <tr>
+                <td class="col-md-3"><label>Initiated by (client):</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.InitiatedByClient"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Client:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.ClientName"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Email:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.ClientEmail"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Account Manager:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.AccountManagerName"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Email:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.AccountManagerEmail"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Project number (GFS):</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.ProjectNumber"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Engagement:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.Engagement"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Delivery unit:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.DeliveryUnit"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>InitiationDate:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.InitiationDate"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Planned date for follow-up:</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.PlannedDateForFollowUp"></td>
+            </tr>
+            <tr>
+                <td class="col-md-3"><label>Consultan(s):</label></td>
+                <td style="border-bottom: 1px solid #000;" class="col-md-3"><input style="border:none" ng-model="modalOptions.csi.Consultants"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn"
+          data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
+  <button class="btn btn-primary"
+          data-ng-click="modalOptions.ok();">{{modalOptions.actionButtonText}}</button>
+</div>
