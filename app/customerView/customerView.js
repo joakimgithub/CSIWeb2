@@ -11,7 +11,7 @@ angular.module('myApp.customerView', [])
     
     $scope.pageTitle = 'Customers';
 
-    $http.get('http://a01c01263c/CSIService/api/GetCustomerList')
+    $http.get('http://a01c01101c/CSIService/api/GetCustomerList')
     .then(function(response) {
         $scope.customers = response.data;
     });

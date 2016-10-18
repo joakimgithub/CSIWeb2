@@ -2,8 +2,8 @@ angular.module('myApp.csiCrudView', ['ngRoute', 'ui.bootstrap'])
 
     .config(['$routeProvider', function ($routeProvider) {
         'use strict';
-        $routeProvider.when('/CsiCrudView', {
-            templateUrl: 'CsiCrudView/csiCrudView.html',
+        $routeProvider.when('/csiCrudView/:id?', {
+            templateUrl: 'csiCrudView/csiCrudView.html',
             controller: 'csiController'
         });
     }])
@@ -62,9 +62,13 @@ angular.module('myApp.csiCrudView', ['ngRoute', 'ui.bootstrap'])
 
     .factory('csiFactory', function ($http) {
         'use strict';
-        var baseAddress = 'http://a01c01101c/CSIService/api/',
+        var baseAddress = 'http://a01c01263c/CSIService/api/',
             url = "";
         return {
+            getCSIListForCustomer: function (custId) {
+                url = baseAddress + "GetCSIListForCustomer/" + custId;
+                return $http.get(url);
+            },
             getCsisList: function () {
                 url = baseAddress + "GetCSIList";
                 return $http.get(url);
@@ -88,12 +92,25 @@ angular.module('myApp.csiCrudView', ['ngRoute', 'ui.bootstrap'])
         };
     })
 
-    .controller('csiController', ['$scope', '$route', '$location', 'csiFactory', 'modalService', function PostController($scope, $route, $location, csiFactory, modalService) {
+    .controller('csiController', ['$scope', '$route', '$location', 'csiFactory', 'modalService', '$routeParams',
+                                  function PostController($scope, $route, $location, csiFactory, modalService, $routeParams) {
         'use strict';
 
         $scope.sortBy = 'Id'; // default value
         $scope.sortDescending = false; // default ascending
         $scope.searchText = ''; // default blank
+        $scope.custId = $routeParams.id;
+
+        // ************************
+        // Get all csis for a customer
+        // ************************
+        $scope.getCSIListForCustomer = function () {
+            csiFactory.getCSIListForCustomer(custId).success(function (data) {
+                $scope.csis = data;
+            }).error(function (data) {
+                $scope.error = "An Error has occured while Loading csis for customer! " + data.ExceptionMessage;
+            });
+        };
 
         // ************************
         // Get all csis
@@ -105,7 +122,6 @@ angular.module('myApp.csiCrudView', ['ngRoute', 'ui.bootstrap'])
                 $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
             });
         };
-
 
         // ************************
         // Copy csi
@@ -262,10 +278,17 @@ angular.module('myApp.csiCrudView', ['ngRoute', 'ui.bootstrap'])
             return csi;
         };
 
+        // ************************
+        // List all Csis for a customer
+        // ************************
+        $scope.getCSIListForCustomer = function (custId) {
+            var custId = custId;
+        };
 
-            // ************************
-            // initialize your csi data
-            // ************************
+
+        // ************************
+        // initialize your csi data
+        // ************************
         $scope.getAll();
 
     }]);
