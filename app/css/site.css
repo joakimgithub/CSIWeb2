@@ -65,6 +65,6 @@ input[type="text"]:disabled.ng-valid{
     left: 0;
     height: 100%;
     width: 100%;
-    background: rgba( 0, 0, 0, .3 ) url('../images/loading.gif') 50% 50% no-repeat;
+    background: rgba( 0, 0, 0, .3 ) url('../assets/img/loading.gif') 50% 50% no-repeat;
 }
 
