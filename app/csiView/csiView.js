@@ -1,11 +1,15 @@
-angular.module('myApp.csiView', ['ngRoute'])
+angular.module('myApp.csiView', [])
 
-    .config(['$routeProvider', function ($routeProvider) {
-        'use strict';
-        $routeProvider.when('/csiView', {
+    .config(['$stateProvider', function ($stateProvider)
+    {
+
+        $stateProvider
+            .state('csiView', {
+            url: '/csiView',
             templateUrl: 'csiView/csiView.html',
-            controller: 'CsiMainInformationController'
+        controller: 'CsiMainInformationController'
         });
+
     }])
 
     // *** Directives ***

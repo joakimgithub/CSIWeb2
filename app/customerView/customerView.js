@@ -1,11 +1,17 @@
+'use strict';
 angular.module('myApp.customerView', [])
 
-.config(['$routeProvider', function ($routeProvider) {
-  $routeProvider.when('/customerView', {
-    templateUrl: 'customerView/customerView.html',
+.config(['$stateProvider', function ($stateProvider)
+    {
+
+    $stateProvider
+        .state('customerView', {
+        url: '/customerView',
+        templateUrl: 'customerView/customerView.html',
     controller: 'customerCtrl'
-  });
-}])
+    });
+
+    }])
 
 .controller("customerCtrl", ['$scope', '$http', function ($scope, $http) {
     

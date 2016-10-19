@@ -1,11 +1,15 @@
-angular.module('myApp.csiCrudView', ['ngRoute', 'ui.bootstrap'])
+angular.module('myApp.csiCrudView', ['ui.bootstrap'])
 
-.config(['$routeProvider', function($routeProvider) {
-    'use strict';
-    $routeProvider.when('/csiCrudView/:id?', {
+.config(['$stateProvider', function ($stateProvider)
+{
+
+    $stateProvider
+        .state('csiCrudView', {
+        url: '/csiCrudView/:id',
         templateUrl: 'csiCrudView/csiCrudView.html',
-        controller: 'csiController'
+    controller: 'csiController'
     });
+
 }])
 
 .service('modalService', ['$uibModal', function($uibModal) {
@@ -92,14 +96,14 @@ angular.module('myApp.csiCrudView', ['ngRoute', 'ui.bootstrap'])
     };
 })
 
-.controller('csiController', ['$scope', '$route', '$location', 'csiFactory', 'modalService', '$routeParams',
-    function PostController($scope, $route, $location, csiFactory, modalService, $routeParams) {
+.controller('csiController', ['$scope', '$state', '$location', 'csiFactory', 'modalService', '$stateParams',
+    function PostController($scope, $state, $location, csiFactory, modalService, $stateParams) {
         'use strict';
 
         $scope.sortBy = 'Id'; // default value
         $scope.sortDescending = false; // default ascending
         $scope.searchText = ''; // default blank
-        $scope.custId = $routeParams.id;
+        $scope.custId = $stateParams.id;
 
         // ************************
         // Get all csis for a customer

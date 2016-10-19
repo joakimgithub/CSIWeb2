@@ -2,17 +2,22 @@
 
 angular.module('myApp.customerCsisView', [])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/customerCsisView/:id?', {
-    templateUrl: 'customerCsisView/customerCsisView.html',
-    controller: 'customerCsisViewCtrl'
-  });
+.config(['$stateProvider', function ($stateProvider)
+{
+
+    $stateProvider
+        .state('customerCsisView', {
+        url: '/customerCsisView/:id',
+        templateUrl: 'customerCsisView/customerCsisView.html',
+        controller: 'customerCsisViewCtrl'
+    });
+
 }])
 
 .controller('customerCsisViewCtrl',
-  ['$scope', '$http',  '$routeParams', function($scope, $http, $routeParams)
+  ['$scope', '$http',  '$stateParams', function($scope, $http, $stateParams)
      {
-      $http.get('http://a01c01101c/CSIService/api/GetCSIListForCustomer/' + $routeParams.id)
+      $http.get('http://a01c01101c/CSIService/api/GetCSIListForCustomer/' + $stateParams.id)
       .then(function(response) {
           $scope.CSIs = response.data;
       });

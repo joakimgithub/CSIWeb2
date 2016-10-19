@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
-    'ngRoute',
+    'ui.router',
     'ngAnimate',
     'myApp.customerView',
     'myApp.customerCsisView',
@@ -10,10 +10,20 @@ var app = angular.module('myApp', [
     'myApp.customerCrudView',
     'myApp.csiView'
 ])
-.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
-  $routeProvider.otherwise({redirectTo: '/customerView'});
-}]);
+
+.controller('appController', function($scope, $route, $routeParams, $location) {
+    $scope.$route = $route;
+    $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
+})
+
+.config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider)
+    {
+        $locationProvider.hashPrefix('!');
+        $urlRouterProvider.otherwise('/customerView');
+
+    }
+]);
 
 //app.constant('global.url', 'http://a01c01263c/CSIService/api/');
 
