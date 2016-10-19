@@ -7,6 +7,7 @@ var app = angular.module('myApp', [
     'myApp.customerView',
     'myApp.customerCsisView',
     'myApp.csiCrudView',
+    'myApp.customerCrudView',
     'myApp.csiView'
 ])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

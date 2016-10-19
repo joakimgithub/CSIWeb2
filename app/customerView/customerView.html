@@ -13,11 +13,11 @@
     <table class="table table-hover ">
         <tr class="alert-success">
             <th>
-                <a ng-click="sortBy = 'Customer'; sortDescending = !sortDescending">
+                <a ng-click="sortBy = 'CustomerName'; sortDescending = !sortDescending">
                     Customer
                 </a>
-                <span ng-show="sortBy == 'Customer' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
-                <span ng-show="sortBy == 'Customer' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                <span ng-show="sortBy == 'CustomerName' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-show="sortBy == 'CustomerName' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
             </th>
             <th>
                 <a ng-click="sortBy = 'CreatedTime'; sortDescending = !sortDescending">
@@ -50,7 +50,7 @@
         </tr>
         <tr class="animate"
             ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending ">
-            <td><a ng-href="#!/csiCrudView/?id={{customer.Id}}" ng-bind="customer.Customer"></a></td>
+            <td><a ng-href="#!/csiCrudView/?id={{customer.Id}}" ng-bind="customer.CustomerName"></a></td>
             <td ng-bind="customer.CreatedTime | date:'yyyy-MM-dd hh:mm'"></td>
             <td ng-bind="customer.CreatedBy"></td>
             <td ng-bind="customer.Active"></td>
