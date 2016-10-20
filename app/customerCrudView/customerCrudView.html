@@ -47,7 +47,7 @@
                 <tr class="animate" data-ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending" >
                     <td ng-bind="customer.Id"></td>
                     <td ng-bind="customer.CustomerCode"></td>
-                    <td ng-bind="customer.CustomerName"></td>
+                    <td><a ng-href="#!/csiCrudView/?id={{customer.Id}}" ng-bind="customer.CustomerName"></a></td>
                     <td ng-bind="customer.CustomerEmail"></td>
                     <td>
                         <button type="button" class="btn btn-default btn-xs" ng-click="copyCustomer(customer)">Copy</button>

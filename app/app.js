@@ -1,9 +1,10 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var app = angular.module('myApp', [
+angular.module('myApp', [
     'ui.router',
     'ngAnimate',
+    'myApp.welcomeView',
     'myApp.customerView',
     'myApp.customerCsisView',
     'myApp.csiCrudView',
@@ -11,19 +12,42 @@ var app = angular.module('myApp', [
     'myApp.csiView'
 ])
 
-.controller('appController', function($scope, $route, $routeParams, $location) {
+.controller('appController', function($scope, $route, $stateParams, $location) {
     $scope.$route = $route;
     $scope.$location = $location;
-    $scope.$routeParams = $routeParams;
+    $scope.$stateParams = $stateParams;
 })
 
 .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider)
     {
+        $stateProvider
+            .state('app', {
+              abstract: true,
+              // ...
+              data: {
+                requireLogin: true // this property will apply to all children of 'app'
+              }
+            })
+            .state('app.dashboard', {
+              // child state of `app`
+              // requireLogin === true
+            })
+
         $locationProvider.hashPrefix('!');
-        $urlRouterProvider.otherwise('/customerView');
+        $urlRouterProvider.otherwise('/customerCrudView');
 
     }
-]);
+])
 
-//app.constant('global.url', 'http://a01c01263c/CSIService/api/');
 
+.run(function ($rootScope) {
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+    var requireLogin = toState.data.requireLogin;
+
+    if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+      event.preventDefault();
+      // get me a login modal!
+    }
+  });
+
+});

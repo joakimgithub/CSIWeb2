@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <img class="img-responsive" src="/app/assets/img/QQCSI_top_noheadline.PNG" alt="Sogeti">
+</div>
+<div>
+  <h3 class="modal-body">Login to CSIWeb</h3>
+  <form ng-submit="LoginModalCtrl.submit(_email, _password)">
+    <input type="email" ng-model="_email" placeholder="email"/>
+    <input type="password" ng-model="_password" placeholder="password" />
+    <button>Submit</button>
+  </form>
+  <button ng-click="LoginModalCtrl.cancel()">Cancel</button>
+</div>
