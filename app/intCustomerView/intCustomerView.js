@@ -137,12 +137,8 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
                 customerFactory.addCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
-<<<<<<< HEAD
                     $state.go($state.current.name, $state.params, { reload: true });
                     $scope.information = "Added Customer: " + customer.CustomerCode + ' ' + customer.CustomerName;
-=======
-                    //$state.reload();
->>>>>>> origin/master
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
                 });
