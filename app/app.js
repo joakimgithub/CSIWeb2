@@ -20,6 +20,10 @@ angular.module('myApp', [
 
 .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider)
     {
+        var currentUser =
+            { 'name': 'Ali Adravi', 'role': 'admin', 'age': 33, 'salary': 123400 }
+        ;
+
         $stateProvider
             .state('app', {
               abstract: true,
@@ -34,8 +38,11 @@ angular.module('myApp', [
             })
 
         $locationProvider.hashPrefix('!');
-        $urlRouterProvider.otherwise('/extCustomerView');
 
+        if(currentUser.role === "user")
+            $urlRouterProvider.otherwise('/intCustomerView');
+        if(currentUser.role === "admin")
+            $urlRouterProvider.otherwise('/extCustomerView');
     }
 ])
 
