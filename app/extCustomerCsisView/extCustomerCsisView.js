@@ -1,20 +1,20 @@
 'use strict';
 
-angular.module('myApp.intCustomerCsisView', [])
+angular.module('myApp.extCustomerCsisView', [])
 
 .config(['$stateProvider', function ($stateProvider)
 {
 
     $stateProvider
-        .state('intCustomerCsisView', {
-        url: '/intCustomerCsisView/:id',
-        templateUrl: 'intCustomerCsisView/intCustomerCsisView.html',
-        controller: 'intCustomerCsisViewCtrl'
+        .state('extCustomerCsisView', {
+        url: '/extCustomerCsisView/:id',
+        templateUrl: 'extCustomerCsisView/extCustomerCsisView.html',
+        controller: 'extCustomerCsisViewCtrl'
     });
 
 }])
 
-.controller('intCustomerCsisViewCtrl',
+.controller('extCustomerCsisViewCtrl',
   ['$scope', '$http',  '$stateParams', function($scope, $http, $stateParams)
      {
       $http.get('http://a01c01101c/CSIService/api/GetCSIListForCustomer/' + $stateParams.id)

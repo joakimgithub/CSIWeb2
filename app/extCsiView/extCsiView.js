@@ -1,12 +1,12 @@
-angular.module('myApp.intCsiView', [])
+angular.module('myApp.extCsiView', [])
 
     .config(['$stateProvider', function ($stateProvider)
     {
 
         $stateProvider
-            .state('intCsiView', {
-            url: '/intCsiView',
-            templateUrl: 'intCsiView/intCsiView.html',
+            .state('extCsiView', {
+            url: '/extCsiView',
+            templateUrl: 'extCsiView/extCsiView.html',
         controller: 'CsiMainInformationController'
         });
 
@@ -17,7 +17,7 @@ angular.module('myApp.intCsiView', [])
     .directive("csiText", function() {
         return {
             restrict: 'A',
-            templateUrl: 'intCsiView/csi-text.html'
+            templateUrl: 'extCsiView/csi-text.html'
         };
     })
 
