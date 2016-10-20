@@ -115,7 +115,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
         // Copy customer
         // ************************
         $scope.copyCustomer = function (customer) {
-            var customerToIns = customer.Id + ' ' + customer.Customer,
+            var customerToIns = customer.Id + ' ' + customer.CustomerCode,
 
             // ************************
             // Modal for Customer insert
@@ -137,11 +137,10 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
                 customerFactory.addCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
-                    //$route.reload();
+                    $state.go($state.current.name, $state.params, { reload: true });
+                    $scope.information = "Added Customer: " + customer.CustomerCode + ' ' + customer.CustomerName;
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
-                }).finally(function () {
-                    $location.path('/intCustomerView');
                 });
             });
         };
@@ -171,6 +170,8 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
                 customerFactory.addCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
+                    $state.go($state.current.name, $state.params, { reload: true });
+                    $scope.information = "Added Customer: " + customer.CustomerCode + ' ' + customer.CustomerName;
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
                 });
@@ -181,7 +182,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
         // update Customer
         // ************************
         $scope.updateCustomer = function (customer) {
-            var customerToUpd = customer.Id + ' ' + customer.Customer,
+            var customerToUpd = customer.Id + ' ' + customer.CustomerCode,
 
                 // ************************
                 // Modal for Customer update
@@ -203,6 +204,8 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function (result) {
                 customerFactory.updateCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
+                    $state.go($state.current.name, $state.params, { reload: true });
+                    $scope.information = "Updated Customer: " + customer.Id + ' ' + customer.CustomerCode + ' ' + customer.CustomerName;
                 }).error(function (data) {
                     $scope.error = "An Error has occured while updating customer! " + data.ExceptionMessage;
                 });
@@ -213,7 +216,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
         // delete Customer
         // ************************
         $scope.deleteCustomer = function (customer) {
-            var customerToDel = customer.Id + ' ' + customer.Customer,
+            var customerToDel = customer.Id + ' ' + customer.CustomerCode,
 
             // ************************
             // Modal for Customer delete
@@ -235,6 +238,8 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
             modalService.showModal(modalDeleteDefaults, modalOptions).then(function (result) {
                 customerFactory.deleteCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
+                    $state.go($state.current.name, $state.params, { reload: true });
+                    $scope.information = "Deleted Customer: " + customer.Id + ' ' + customer.CustomerCode + ' ' + customer.CustomerName;
                 }).error(function (data) {
                     $scope.error = "An Error has occured while deleting customer! " + data.ExceptionMessage;
                 });

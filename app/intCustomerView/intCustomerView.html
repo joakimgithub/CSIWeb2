@@ -10,6 +10,7 @@
                 <div>Search Text: {{searchText}}</div>
             </div>
 -->
+            <div>{{error}}</div><div>{{information}}</div>
             <div><button type="button" class="btn pull-right btn-xs" ng-click="insertCustomer()">New</button></div>
             <br>
             <br>
@@ -44,7 +45,7 @@
                     <th></th>
                 </tr>
 
-                <tr class="animate" data-ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending" >
+                <tr data-ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending" >
                     <td ng-bind="customer.Id"></td>
                     <td ng-bind="customer.CustomerCode"></td>
                     <td><a ng-href="#!/extCsiView/?id={{customer.Id}}" ng-bind="customer.CustomerName"></a></td>
