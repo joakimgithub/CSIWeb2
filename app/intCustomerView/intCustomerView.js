@@ -128,7 +128,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
-                    actionButtonText: 'Copy CSI',
+                    actionButtonText: 'Copy Customer',
                     headerText: 'Make a copy of Customer: ' + customerToIns + '?',
                     bodyText: 'Are you sure you want to Copy this Customer?',
                     customer: customer
@@ -239,8 +239,8 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
             });
         };
 
-        $scope.newEmptyCsi = function () {
-            var csi = {
+        $scope.newEmptyCustomer = function () {
+            var customer = {
                     Id: null,
                     CustomerCode: null,
                     CustomerName: null,
@@ -250,11 +250,11 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     Updated: null,
                     UpdatedBy: null
                 };
-            return csi;
+            return customer;
         };
 
         // ************************
-        // initialize your csi data
+        // initialize your customer data
         // ************************
         $scope.getAllCustomers();
 
