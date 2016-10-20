@@ -183,7 +183,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
         // update Customer
         // ************************
         $scope.updateCustomer = function (customer) {
-            var updateCustomer = {CustomerCode: customer.CustomerCode, CustomerName: customer.CustomerName, CustomerEmail: customer.CustomerEmail, Active: customer.Active};
+            var updateCustomer = {Id: customer.Id, CustomerCode: customer.CustomerCode, CustomerName: customer.CustomerName, CustomerEmail: customer.CustomerEmail, Active: customer.Active};
             var customerToUpd = customer.Id + ' ' + customer.CustomerCode,
 
                 // ************************
