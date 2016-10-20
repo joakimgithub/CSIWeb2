@@ -140,7 +140,7 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCsiView/csiCopyModal.html'
+                    intClateUrl: '/app/intCsiView/intCsiCopyModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -173,7 +173,7 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCsiView/csiInsertModal.html'
+                    templateUrl: '/app/intCsiView/intCsiInsertModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -205,7 +205,7 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCsiView/csiUpdateModal.html'
+                    templateUrl: '/app/intCsiView/intCsiUpdateModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -238,7 +238,7 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCsiView/csiDeleteModal.html'
+                    templateUrl: '/app/intCsiView/intCsiDeleteModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
