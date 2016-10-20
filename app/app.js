@@ -34,7 +34,7 @@ angular.module('myApp', [
             })
 
         $locationProvider.hashPrefix('!');
-        $urlRouterProvider.otherwise('/intCustomerView');
+        $urlRouterProvider.otherwise('/extCustomerView');
 
     }
 ])
