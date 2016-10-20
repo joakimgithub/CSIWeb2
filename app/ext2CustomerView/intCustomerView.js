@@ -1,11 +1,11 @@
-angular.module('myApp.extCustomerView', ['ui.bootstrap'])
+angular.module('myApp.intCustomerView', ['ui.bootstrap'])
 
 .config(['$stateProvider', function ($stateProvider)
 {
     $stateProvider
-        .state('extCustomerView', {
-        url: '/extCustomerView',
-        templateUrl: 'extCustomerView/extCustomerView.html',
+        .state('intCustomerView', {
+        url: '/intCustomerView',
+        templateUrl: 'intCustomerView/intCustomerView.html',
         controller: 'customerController'
     });
 }])
@@ -16,7 +16,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
             backdrop: true,
             keyboard: true,
             modalFade: true,
-            templateUrl: '/app/extCustomerView/Modal.html'
+            templateUrl: '/app/intCustomerView/Modal.html'
         },
         modalOptions = {
             closeButtonText: 'Close',
@@ -124,7 +124,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/extCustomerView/customerCopyModal.html'
+                    templateUrl: '/app/intCustomerView/customerCopyModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -136,7 +136,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
                 customerFactory.addCustomer(customer).success(function () {
-                    $location.path('/extCustomerView');
+                    $location.path('/intCustomerView');
                     //$route.reload();
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
@@ -156,7 +156,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/extCustomerView/customerInsertModal.html'
+                    templateUrl: '/app/intCustomerView/customerInsertModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -168,7 +168,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
                 customerFactory.addCustomer(customer).then(function () {
-                    $location.path('/extCustomerView');
+                    $location.path('/intCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
                 });
@@ -188,7 +188,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/extCustomerView/customerUpdateModal.html'
+                    templateUrl: '/app/intCustomerView/customerUpdateModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -200,7 +200,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
 
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function (result) {
                 customerFactory.updateCustomer(customer).then(function () {
-                    $location.path('/extCustomerView');
+                    $location.path('/intCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while updating customer! " + data.ExceptionMessage;
                 });
@@ -220,7 +220,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/extCustomerView/customerDeleteModal.html'
+                    templateUrl: '/app/intCustomerView/customerDeleteModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -232,7 +232,7 @@ angular.module('myApp.extCustomerView', ['ui.bootstrap'])
 
             modalService.showModal(modalDeleteDefaults, modalOptions).then(function (result) {
                 customerFactory.deleteCustomer(customer).then(function () {
-                    $location.path('/extCustomerView');
+                    $location.path('/intCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while deleting customer! " + data.ExceptionMessage;
                 });
