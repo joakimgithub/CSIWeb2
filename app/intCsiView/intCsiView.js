@@ -153,8 +153,7 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
             modalService.showModal(modalInsertDefaults, modalOptions).then(function(result) {
                 csiFactory.addCsi(csi).success(function() {
                         $location.path('/intCsiView');
-                        $route.reload();
-                    })
+                        $state.go($state.current.name, $state.params, { reload: true });                    })
                     .error(function(data) {
                         $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
                     });
@@ -184,8 +183,9 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                 };
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function(result) {
-                csiFactory.addCsi(csi).then(function() {
+                csiFactory.addCsi(csi).success(function() {
                     $location.path('/intCsiView');
+                    $state.go($state.current.name, $state.params, { reload: true });
                 }).error(function(data) {
                         $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
                 });
@@ -216,8 +216,9 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                 };
 
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function(result) {
-                csiFactory.updateCsi(csi).then(function() {
+                csiFactory.updateCsi(csi).success(function() {
                     $location.path('/intCsiView');
+                    $state.go($state.current.name, $state.params, { reload: true });
                 })
                 .error(function(data) {
                     $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
@@ -249,8 +250,9 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                 };
 
             modalService.showModal(modalDeleteDefaults, modalOptions).then(function(result) {
-                csiFactory.deleteCsi(csi).then(function() {
+                csiFactory.deleteCsi(csi).success(function() {
                     $location.path('/intCsiView');
+                    $state.go($state.current.name, $state.params, { reload: true });
                 }).error(function(data) {
                     $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
                 });
