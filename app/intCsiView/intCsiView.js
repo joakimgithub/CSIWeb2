@@ -1,177 +1,301 @@
-angular.module('myApp.intCsiView', [])
+angular.module('myApp.intCsiView', ['ui.bootstrap'])
 
-    .config(['$stateProvider', function ($stateProvider)
-    {
+.config(['$stateProvider', function ($stateProvider)
+{
 
-        $stateProvider
-            .state('intCsiView', {
-            url: '/intCsiView',
-            templateUrl: 'intCsiView/intCsiView.html',
-        controller: 'CsiMainInformationController'
-        });
+    $stateProvider
+        .state('intCsiView', {
+        url: '/intCsiView/:id',
+        templateUrl: 'intCsiView/intCsiView.html',
+    controller: 'csiController'
+    });
 
-    }])
+}])
 
-    // *** Directives ***
-    // Directive för text <div csi-text></div>
-    .directive("csiText", function() {
-        return {
-            restrict: 'A',
-            templateUrl: 'intCsiView/csi-text.html'
+.service('modalService', ['$uibModal', function($uibModal) {
+    'use strict';
+    var modalDefaults = {
+            backdrop: true,
+            keyboard: true,
+            modalFade: true,
+            templateUrl: '/app/intCsiView/Modal.html'
+        },
+        modalOptions = {
+            closeButtonText: 'Close',
+            actionButtonText: 'OK',
+            headerText: 'Proceed?',
+            bodyText: 'Perform this action?',
+            csi: null
         };
-    })
 
-    // *** Services ***
-    // Service SharedDataService
-    .service('SharedDataService', function () {
+    this.showModal = function(customModalDefaults, customModalOptions) {
+        if (!customModalDefaults) {
+            customModalDefaults = {};
+        }
+        customModalDefaults.backdrop = 'static';
+        return this.show(customModalDefaults, customModalOptions);
+    };
+
+    this.show = function(customModalDefaults, customModalOptions) {
+        //Create temp objects to work with since we're in a singleton service
+        var tempModalDefaults = {},
+            tempModalOptions = {};
+
+        //Map angular-ui modal custom defaults to modal defaults defined in service
+        angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
+
+        //Map modal.html $scope custom properties to defaults defined in service
+        angular.extend(tempModalOptions, modalOptions, customModalOptions);
+
+        if (!tempModalDefaults.controller) {
+            tempModalDefaults.controller = function($scope, $uibModalInstance) {
+                $scope.modalOptions = tempModalOptions;
+
+                $scope.modalOptions.ok = function(result) {
+                    $uibModalInstance.close(result);
+                };
+
+                $scope.modalOptions.close = function(result) {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+        }
+        return $uibModal.open(tempModalDefaults).result;
+    };
+}])
+
+.factory('csiFactory', function($http) {
+    'use strict';
+    var baseAddress = 'http://a01c01101c/CSIService/api/',
+        url = "";
+    return {
+        getCSIListForCustomer: function(custId) {
+            url = baseAddress + "GetCSIListForCustomer/" + custId;
+            return $http.get(url);
+        },
+        getCsisList: function() {
+            url = baseAddress + "GetCSIList";
+            return $http.get(url);
+        },
+        getCsi: function(csi) {
+            url = baseAddress + "GetCSI/" + csi.Id;
+            return $http.get(url);
+        },
+        addCsi: function(csi) {
+            url = baseAddress + "AddCSI";
+            return $http.post(url, csi);
+        },
+        deleteCsi: function(csi) {
+            url = baseAddress + "DeleteCSI/" + csi.Id;
+            return $http.delete(url);
+        },
+        updateCsi: function(csi) {
+            url = baseAddress + "ModifyCSI/" + csi.Id;
+            return $http.put(url, csi);
+        }
+    };
+})
+
+.controller('csiController', ['$scope', '$state', '$location', 'csiFactory', 'modalService', '$stateParams',
+    function PostController($scope, $state, $location, csiFactory, modalService, $stateParams) {
         'use strict';
-        var ShareData = {
-                totalIV: 0,
-                totalV5: 0,
-                total: 0};
-        return ShareData;
-    })  // End SharedDataService
 
+        $scope.sortBy = 'Id'; // default value
+        $scope.sortDescending = false; // default ascending
+        $scope.searchText = ''; // default blank
+        $scope.custId = $stateParams.id;
 
-    // Service CsiQualityCriteriaService
-    .service("CsiQualityCriteriaService", function ($http) {
-        'use strict';
-        this.getCSIQualityCriteria = function () {
-            var url = 'http://A01C01101C//CSIService/api/CSI_QualityCriteria/CsiID/1';
-            return $http.get(url).then(function (response) {
-                return response.data;
-
+        // ************************
+        // Get all csis for a customer
+        // ************************
+        $scope.getCSIListForCustomer = function() {
+            csiFactory.getCSIListForCustomer(custId).success(function(data) {
+                $scope.csis = data;
+            }).error(function(data) {
+                $scope.error = "An Error has occured while Loading csis for customer! " + data.ExceptionMessage;
             });
         };
-    }) // End CsiQualityCriteriaService
 
-    // Service CsiMainInformationService
-    .service("CsiMainInformationService", function ($http) {
-        'use strict';
-        this.getCSI = function () {
-            var url = 'http://A01C01101C//CSIService/api/GetCSI/1';
-            return $http.get(url).then(function (response) {
-                return response.data;
+        // ************************
+        // Get all csis
+        // ************************
+        $scope.getAll = function() {
+            csiFactory.getCsisList().success(function(data) {
+                $scope.csis = data;
+            }).error(function(data) {
+                $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
             });
         };
-    })  // End CsiMainInformationService
 
+        // ************************
+        // Copy csi
+        // ************************
+        $scope.copyCsi = function(csi) {
+            var csiToIns = csi.Id + ' ' + csi.Engagement,
 
-    // *** Controllers ***
-    // Controller CsiQualityCriteriaController
-    .controller('CsiQualityCriteriaController',  ['$scope', 'CsiQualityCriteriaService', 'SharedDataService', function ($scope, CsiQualityCriteriaService,SharedDataService) {
-        'usee strict';
-        $scope.ShareData = SharedDataService;
+                // ************************
+                // Modal for CSI insert
+                // ************************
+                modalInsertDefaults = {
+                    backdrop: true,
+                    keyboard: true,
+                    modalFade: true,
+                    templateUrl: '/app/intCsiView/csiCopyModal.html'
+                },
+                modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Copy CSI',
+                    headerText: 'Make a copy of CSI: ' + csiToIns + '?',
+                    bodyText: 'Are you sure you want to Copy this CSI?',
+                    csi: csi
+                };
 
-            //$scope.csiQualityCriterias = [{QualityCriteria: "Leverera i tid", Importance: 4, Value: 4}, {QualityCriteria: "Vara lyhörd för användarens åsikter", //Importance: 4, Value: 5}];
+            modalService.showModal(modalInsertDefaults, modalOptions).then(function(result) {
+                csiFactory.addCsi(csi).success(function() {
+                        $location.path('/intCsiView');
+                        $route.reload();
+                    })
+                    .error(function(data) {
+                        $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
+                    });
+            });
+        };
 
+        // ************************
+        // insert Csi
+        // ************************
+        $scope.insertCsi = function() {
+            var csi = $scope.newEmptyCsi(),
+                // ************************
+                // Modal for CSI insert
+                // ************************
+                modalInsertDefaults = {
+                    backdrop: true,
+                    keyboard: true,
+                    modalFade: true,
+                    templateUrl: '/app/intCsiView/csiInsertModal.html'
+                },
+                modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Insert CSI',
+                    headerText: 'Insert',
+                    bodyText: 'Are you sure you want to insert this CSI?',
+                    csi: csi
+                };
 
-        getCSIQCData();
-        function getCSIQCData() {
-            var servCall = CsiQualityCriteriaService.getCSIQualityCriteria();
-            servCall.then(function (data) {
-             //debugger;
-                $scope.csiQualityCriterias = data;
+            modalService.showModal(modalInsertDefaults, modalOptions).then(function(result) {
+                csiFactory.addCsi(csi).then(function() {
+                    $location.path('/intCsiView');
+                }).error(function(data) {
+                        $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
+                });
+            });
+        };
 
-                angular.forEach($scope.csiQualityCriterias, function(csiQualityCriterias){
-                    $scope.ShareData.totalIV = $scope.ShareData.totalIV + (csiQualityCriterias.Importance * csiQualityCriterias.Value);
-                    $scope.ShareData.totalV5 = $scope.ShareData.totalV5 + (csiQualityCriterias.Value *5);
-                    $scope.ShareData.total =(Math.round((($scope.ShareData.totalIV/$scope.ShareData.totalV5) * 5) * 10) / 10);
+        // ************************
+        // update Csi
+        // ************************
+        $scope.updateCsi = function(csi) {
+            var csiToUpd = csi.Id + ' ' + csi.Engagement,
+
+                // ************************
+                // Modal for CSI update
+                // ************************
+                modalUpdateDefaults = {
+                    backdrop: true,
+                    keyboard: true,
+                    modalFade: true,
+                    templateUrl: '/app/intCsiView/csiUpdateModal.html'
+                },
+                modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Update CSI',
+                    headerText: 'Update ' + csiToUpd + '?',
+                    bodyText: 'Are you sure you want to update this CSI?',
+                    csi: csi
+                };
+
+            modalService.showModal(modalUpdateDefaults, modalOptions).then(function(result) {
+                csiFactory.updateCsi(csi).then(function() {
+                    $location.path('/intCsiView');
                 })
-            }, function (error) {
-                $log.error('Oops! Something went wrong while fetching the data.')
-            })
-        } // End OSIQCData
-
-        $scope.totalImpVal = function(){
-            var total = 0;
-            angular.forEach($scope.csiQualityCriterias, function(csiQualityCriterias){
-                total = total + (csiQualityCriterias.Importance * csiQualityCriterias.Value);
-            })
-            return total;
-        }
-
-        $scope.totalImp5 = function(){
-            var total = 0;
-            angular.forEach($scope.csiQualityCriterias, function(csiQualityCriterias){
-                total = total + (csiQualityCriterias.Value * 5);
-            })
-            return total;
-        }
-
-        $scope.qualityValue = function(){
-            var total = 0;
-            var totalV5 = 0;
-            var totalIV = 0;
-            angular.forEach($scope.csiQualityCriterias, function(csiQualityCriterias){
-                totalIV = totalIV + (csiQualityCriterias.Importance * csiQualityCriterias.Value);
-                totalV5 = totalV5 + (csiQualityCriterias.Value * 5);
-                total =(Math.round(((totalIV/totalV5) * 5) * 10) / 10);
-            })
-            return total;
-        }
-    }])  // End CsiQualityCriteriaController
-
-    // Controller CsiMainInformationController
-    .controller('CsiMainInformationController', ['$scope', 'CsiMainInformationService','SharedDataService', function ($scope, CsiMainInformationService, SharedDataService) {
-        'use strict';
-        $scope.ShareData = SharedDataService;
-
-        //    $scope.csi = {
-        //        Id: '2',
-        //        Id_Customer: '1',
-        //        Id_Status: '1',
-        //        ClientName: 'Putte Kock',
-        //        ClientEmail: 'Putte.Kock@mail.se',
-        //        InitiatedByClient: 'SSAB Oxelösund',
-        //        AccountManagerName: 'Jan Lindeberg',
-        //        AccountManagerEmail: 'jan.lindeberg@sogeti.se',
-        //        Engagement: 'Nytt Intranät, EPI-Server',
-        //        ProjectNumber: '55678',
-        //        DeliveryUnit: 'Nyköping',
-        //        InitiationDate: '',
-        //        Consultants: '',
-        //        PlannedDateForFollowUp: '',
-        //        FollowedUpDate: '',
-        //        FollowedUpByClient: '',
-        //        SimpleCSI: '0',
-        //        Created: '',
-        //        CreatedBy: 'Janne',
-        //        Updated: '',
-        //        UpdatedBy: ''
-        //    };
-
-        function getCSIMainData() {
-            var servCall = CsiMainInformationService.getCSI();
-            servCall.then(function (data) {
-                //debugger;
-                $scope.csi = data;
-            }, function (error) {
-                $log.error('Oops! Something went wrong while fetching the data.');
+                .error(function(data) {
+                    $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
+                });
             });
         };
 
-        getCSIMainData();
+        // ************************
+        // delete Csi
+        // ************************
+        $scope.deleteCsi = function(csi) {
+            var csiToDel = csi.Id + ' ' + csi.Engagement,
 
-        // PDF
-        $scope.openPdf = function() {
-            pdfMake.createPdf(docDefinition).open();
-        };
+                // ************************
+                // Modal for CSI delete
+                // ************************
+                modalDeleteDefaults = {
+                    backdrop: true,
+                    keyboard: true,
+                    modalFade: true,
+                    templateUrl: '/app/intCsiView/csiDeleteModal.html'
+                },
+                modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Delete CSI',
+                    headerText: 'Delete ' + csiToDel + '?',
+                    bodyText: 'Are you sure you want to delete this CSI?',
+                    csi: csi
+                };
 
-        $scope.downloadPdf = function() {
-            html2canvas(document.getElementById('exportthis'), {
-            onrendered: function (canvas) {
-                    var data = canvas.toDataURL();
-                    var docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500,
-                        }]
-                    };
-                    pdfMake.createPdf(docDefinition).download("Csi.pdf");
-                }
+            modalService.showModal(modalDeleteDefaults, modalOptions).then(function(result) {
+                csiFactory.deleteCsi(csi).then(function() {
+                    $location.path('/intCsiView');
+                }).error(function(data) {
+                    $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
+                });
             });
         };
 
+        $scope.newEmptyCsi = function() {
+            var csi = {
+                Id: null,
+                Id_Customer: null,
+                Id_Status: null,
+                ClientName: null,
+                ClientEmail: null,
+                InitiatedByClient: null,
+                AccountManagerName: null,
+                AccountManagerEmail: null,
+                Engagement: null,
+                ProjectNumber: null,
+                DeliveryUnit: null,
+                InitiationDate: null,
+                Consultants: null,
+                PlannedDateForFollowUp: null,
+                FollowedUpDate: null,
+                FollowedUpByClient: null,
+                SimpleCSI: null,
+                Created: null,
+                CreatedBy: null,
+                Updated: null,
+                UpdatedBy: null
+            };
+            return csi;
+        };
 
-    }]); // End CsiMainInformationService
+        // ************************
+        // List all Csis for a customer
+        // ************************
+        $scope.getCSIListForCustomer = function(custId) {
+            var custId = custId;
+        };
+
+
+        // ************************
+        // initialize your csi data
+        // ************************
+        $scope.getAll();
+
+    }
+]);

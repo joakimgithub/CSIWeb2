@@ -1,0 +1,60 @@
+    <h1 ng-bind="pageTitle"></h1>
+
+    <div class="input-group">
+        <input type="text"
+               ng-model="searchText"
+               class="form-control"
+               placeholder="Enter search text" >
+        <span class="input-group-addon" id="basic-addon1">
+            <i class="glyphicon glyphicon-search"></i>
+        </span>
+    </div>
+
+    <table class="table table-hover ">
+        <tr class="alert-success">
+            <th>
+                <a ng-click="sortBy = 'CustomerName'; sortDescending = !sortDescending">
+                    Customer
+                </a>
+                <span ng-show="sortBy == 'CustomerName' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-show="sortBy == 'CustomerName' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th>
+                <a ng-click="sortBy = 'CreatedTime'; sortDescending = !sortDescending">
+                    CreatedTime
+                </a>
+                <span ng-show="sortBy == 'CreatedTime' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-show="sortBy == 'CreatedTime' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th>
+                <a ng-click="sortBy = 'CreatedBy'; sortDescending = !sortDescending">
+                    CreatedBy
+                </a>
+                <span ng-show="sortBy == 'CreatedBy' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-show="sortBy == 'CreatedBy' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th>
+                <a ng-click="sortBy = 'Active'; sortDescending = !sortDescending">
+                    Active
+                </a>
+                <span ng-show="sortBy == 'Active' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-show="sortBy == 'Active' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th>
+                <a ng-click="sortBy = 'Id'; sortDescending = !sortDescending">
+                    Id
+                </a>
+                <span ng-show="sortBy == 'Id' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-show="sortBy == 'Id' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+        </tr>
+        <tr class="animate"
+            ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending ">
+            <td><a ng-href="#!/intCsiView/?id={{customer.Id}}" ng-bind="customer.CustomerName"></a></td>
+            <td ng-bind="customer.CreatedTime | date:'yyyy-MM-dd hh:mm'"></td>
+            <td ng-bind="customer.CreatedBy"></td>
+            <td ng-bind="customer.Active"></td>
+            <td ng-bind="customer.Id"></td>
+        </tr>
+    </table>
+

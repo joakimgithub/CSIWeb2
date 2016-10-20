@@ -1,154 +1,90 @@
-    <div id="exportthis" ng-app="myApp.intCsiView">
-        <div class="container-fluid ">
-            <img class="img-responsive" src="/app/assets/img/QQCSI_top.PNG" alt="Sogeti">
-        </div>
-        <p></p>
-        <div id="tblCSIQCs" ng-controller="CsiQualityCriteriaController">
-            <div class="row ">
-                <div class="col-md-12">
-                    <table class="table table-responsive table-hover">
-                        <thead>
-                            <tr>
-                                <th style="border-bottom: 1px solid #000;" class="col-md-4">Quality Criteria</th>
-                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance</th>
-                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Value</th>
-                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Value * Importance</th>
-                                <th style="border-bottom: 1px solid #000;" class="col-md-2">Importance * 5</th>
-                            </tr>
-                        </thead>
-
-                        <tbody ng-repeat="csiQC in csiQualityCriterias">
-                            <tr>
-                                <td style="border-bottom: 1px solid #000;" class="col-md-4">{{csiQC.QualityCriteria}}</td>
-                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance}}</td>
-                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value}}</td>
-                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Value * csiQC.Importance}}</td>
-                                <td style="border-bottom: 1px solid #000;" class="col-md-2">{{csiQC.Importance * 5}}</td>
-                            </tr>
-                        </tbody>
-
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <ul class = "list-unstyled">
-                                        <li><small>1 least important</small></li>
-                                        <li><small>2 less important</small></li>
-                                        <li><small>3 medium important</small></li>
-                                        <li><small>4 more important</small></li>
-                                        <li><small>5 most important</small></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class = "list-unstyled">
-                                        <li><small>1 poor</small></li>
-                                        <li><small>2 litle value</small></li>
-                                        <li><small>3 approved</small></li>
-                                        <li><small>4 good</small></li>
-                                        <li><small>5 very good</small></li>
-                                    </ul>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-        <!-- Sparar dessa funktionsanrop till kontrollern som exempel, se även controllern CSIQualityCriteria       -->
-        <!--            {{ totalImpVal() }}  {{ totalImp5() }} {{ qualityValue() }}                                 -->
-
-                </div>
+        <div ng-app="myApp.intCsiView" ng-controller="csiController">
+            <br>
+            <br>
+            <br>
+            <div><h1>CSI List</h1></div>
+<!--
+            <div class="alert alert-info">
+                <div>Sort By: {{sortBy}}</div>
+                <div>Descending: {{sortDescending}}</div>
+                <div>Search Text: {{searchText}}</div>
             </div>
-        </div>
-        <div id="CSIMainContext" ng-controller="CsiMainInformationController" class="container-fluid ">
-            <div>
-                <button ng-click="openPdf()">Open Pdf</button>
-                <button ng-click="downloadPdf()">Download Pdf</button>
+-->
+            <div><button type="button" class="btn pull-right btn-xs" ng-click="insertCsi()">New</button></div>
+            <br>
+            <br>
+            <div>Status:{{process.status}} Message:{{process.message}}</div>
+            <div class="input-group">
+                <input type="text" ng-model="searchText" class="form-control" placeholder="Search csi" >
+                <span class="input-group-addon" id="basic-addon1">
+                    <i class="glyphicon glyphicon-search"></i>
+                </span>
             </div>
-            <div class="row ">
-                <div class="col-md-6 ">
-                <hr style ="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0;">
-                    <h2>Initiering</h2>
-                    <table class="table-responsive">
-                        <tr>
-                            <td class="col-md-3"><label>Initiated by (client):</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.InitiatedByClient}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Client:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.ClientName}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Email:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.ClientEmail}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Account Manager:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.AccountManagerName}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Email:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.AccountManagerEmail}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Project number (GFS):</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.ProjectNumber}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Engagement:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.Engagement}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Delivery unit:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.DeliveryUnit}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>InitiationDate:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.InitiationDate}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Planned date for follow-up:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.PlannedDateForFollowUp}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Consultan(s):</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.Consultants}}</td>
-                        </tr>
-                    </table>
-                </div>
+            <table class="table table-hover">
+                <tr class="alert-success">
+                    <th>
+                        <a ng-click="sortBy = 'Id'; sortDescending = !sortDescending">ID</a>
+                        <span ng-show="sortBy == 'Id' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'Id' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'ClientName'; sortDescending = !sortDescending">Client name</a>
+                        <span ng-show="sortBy == 'ClientName' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'ClientName' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'ClientEmail'; sortDescending = !sortDescending">Client email</a>
+                        <span ng-show="sortBy == 'ClientEmail' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'ClientEmail' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'InitiatedByClient'; sortDescending = !sortDescending">Initiated by (client)</a>
+                        <span ng-show="sortBy == 'InitiatedByClient' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'InitiatedByClient' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'AccountManagerName'; sortDescending = !sortDescending">Account manager</a>
+                        <span ng-show="sortBy == 'AccountManagerName' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'AccountManagerName' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'AccountManagerEmail'; sortDescending = !sortDescending">Account manager email</a>
+                        <span ng-show="sortBy == 'AccountManagerEmail' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'AccountManagerEmail' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'Engagement'; sortDescending = !sortDescending">Engagement</a>
+                        <span ng-show="sortBy == 'Engagement' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'Engagement' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'ProjectNumber'; sortDescending = !sortDescending">Project number</a>
+                        <span ng-show="sortBy == 'ProjectNumber' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'ProjectNumber' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th>
+                        <a ng-click="sortBy = 'DeliveryUnit'; sortDescending = !sortDescending">Delivery unit</a>
+                        <span ng-show="sortBy == 'DeliveryUnit' && !sortDescending" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortBy == 'DeliveryUnit' && sortDescending" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th></th>
+                </tr>
 
-                <div class="col-md-6 ">
-                <hr style ="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0;">
-                    <h2>Follow-up</h2>
-                    <table class="table-responsive">
-                        <tr>
-                            <td class="col-md-3"><label>Follwed-up by (Client):</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.FollowedUpByClient}}</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-3"><label>Date for follow-up:</label></td>
-                            <td style="border-bottom: 1px solid #000;" class="col-md-3">{{csi.FollowedUpDate}}</td>
-                        </tr>
-                    </table>
-                    <p></p>
-
-                            <table class="table table-responsive table-bordered table-hover">
-                                <tr>
-                                    <td class="col-md-4"><label>A: Total (Importance * Value)</label></td>
-                                    <td class="col-md-2">{{ShareData.totalIV}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4"><label>B: Total (Value *5)</label></td>
-                                    <td class="col-md-2">{{ShareData.totalV5}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4"><label>Quality value (A/B * 5)</label></td>
-                                    <td class="col-md-2">{{ShareData.total}}</td>
-                                </tr>
-                            </table>
-                </div>
-            </div>
+                <tr class="animate" data-ng-repeat="csi in csis | filter: searchText | orderBy:sortBy:sortDescending" >
+                    <td ng-bind="csi.Id"></td>
+                    <td ng-bind="csi.ClientName"></td>
+                    <td ng-bind="csi.ClientEmail"></td>
+                    <td ng-bind="csi.InitiatedByClient"></td>
+                    <td ng-bind="csi.AccountManagerName"></td>
+                    <td ng-bind="csi.AccountManagerEmail"></td>
+                    <td ng-bind="csi.Engagement"></td>
+                    <td ng-bind="csi.ProjektNumber"></td>
+                    <td ng-bind="csi.DeliveryUnit"></td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="copyCsi(csi)">Copy</button>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="updateCsi(csi)">Edit</button>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="deleteCsi(csi)">Del.</button>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div intCsi-text></div>
-
-        </div>
-

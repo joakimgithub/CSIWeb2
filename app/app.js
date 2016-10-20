@@ -5,11 +5,11 @@ angular.module('myApp', [
     'ui.router',
     'ngAnimate',
     'myApp.welcomeView',
-    'myApp.intCustomerView',
-    'myApp.intCustomerCsisView',
-    'myApp.intCsiView',
     'myApp.extCustomerView',
-    'myApp.extCsiView'
+    'myApp.extCustomerCsisView',
+    'myApp.extCsiView',
+    'myApp.intCustomerView',
+    'myApp.intCsiView'
 ])
 
 .controller('appController', function($scope, $route, $stateParams, $location) {
@@ -34,7 +34,7 @@ angular.module('myApp', [
             })
 
         $locationProvider.hashPrefix('!');
-        $urlRouterProvider.otherwise('/extCustomerView');
+        $urlRouterProvider.otherwise('/intCustomerView');
 
     }
 ])
