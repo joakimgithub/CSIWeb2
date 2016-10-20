@@ -124,11 +124,11 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCustomerView/customerCopyModal.html'
+                    templateUrl: '/app/intCustomerView/intCustomerCopyModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
-                    actionButtonText: 'Copy CSI',
+                    actionButtonText: 'Copy Customer',
                     headerText: 'Make a copy of Customer: ' + customerToIns + '?',
                     bodyText: 'Are you sure you want to Copy this Customer?',
                     customer: customer
@@ -140,6 +140,8 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     //$route.reload();
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
+                }).finally(function () {
+                    $location.path('/intCustomerView');
                 });
             });
         };
@@ -156,7 +158,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCustomerView/customerInsertModal.html'
+                    templateUrl: '/app/intCustomerView/intCustomerInsertModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -167,7 +169,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                 };
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
-                customerFactory.addCustomer(customer).then(function () {
+                customerFactory.addCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
@@ -188,7 +190,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCustomerView/customerUpdateModal.html'
+                    templateUrl: '/app/intCustomerView/intCustomerUpdateModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -199,7 +201,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                 };
 
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function (result) {
-                customerFactory.updateCustomer(customer).then(function () {
+                customerFactory.updateCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while updating customer! " + data.ExceptionMessage;
@@ -220,7 +222,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/intCustomerView/customerDeleteModal.html'
+                    templateUrl: '/app/intCustomerView/intCustomerDeleteModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -231,7 +233,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                 };
 
             modalService.showModal(modalDeleteDefaults, modalOptions).then(function (result) {
-                customerFactory.deleteCustomer(customer).then(function () {
+                customerFactory.deleteCustomer(customer).success(function () {
                     $location.path('/intCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while deleting customer! " + data.ExceptionMessage;
@@ -239,8 +241,8 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
             });
         };
 
-        $scope.newEmptyCsi = function () {
-            var csi = {
+        $scope.newEmptyCustomer = function () {
+            var customer = {
                     Id: null,
                     CustomerCode: null,
                     CustomerName: null,
@@ -250,11 +252,11 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     Updated: null,
                     UpdatedBy: null
                 };
-            return csi;
+            return customer;
         };
 
         // ************************
-        // initialize your csi data
+        // initialize your customer data
         // ************************
         $scope.getAllCustomers();
 
