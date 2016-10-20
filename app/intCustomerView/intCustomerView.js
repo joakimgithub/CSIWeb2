@@ -115,6 +115,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
         // Copy customer
         // ************************
         $scope.copyCustomer = function (customer) {
+            var newCustomer = {CustomerCode: customer.CustomerCode, CustomerName: customer.CustomerName, CustomerEmail: customer.CustomerEmail, Active: customer.Active};
             var customerToIns = customer.Id + ' ' + customer.CustomerCode,
 
             // ************************
@@ -131,14 +132,14 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     actionButtonText: 'Copy Customer',
                     headerText: 'Make a copy of Customer: ' + customerToIns + '?',
                     bodyText: 'Are you sure you want to Copy this Customer?',
-                    customer: customer
+                    customer: newCustomer
                 };
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
-                customerFactory.addCustomer(customer).success(function () {
+                customerFactory.addCustomer(newCustomer).success(function () {
                     $location.path('/intCustomerView');
                     $state.go($state.current.name, $state.params, { reload: true });
-                    $scope.information = "Added Customer: " + customer.CustomerCode + ' ' + customer.CustomerName;
+                    $scope.information = "Added Customer: " + newCustomer.CustomerCode + ' ' + newCustomer.CustomerName;
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
                 });
@@ -182,6 +183,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
         // update Customer
         // ************************
         $scope.updateCustomer = function (customer) {
+            var updateCustomer = {CustomerCode: customer.CustomerCode, CustomerName: customer.CustomerName, CustomerEmail: customer.CustomerEmail, Active: customer.Active};
             var customerToUpd = customer.Id + ' ' + customer.CustomerCode,
 
                 // ************************
@@ -198,14 +200,14 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     actionButtonText: 'Update Customer',
                     headerText: 'Update ' + customerToUpd + '?',
                     bodyText: 'Are you sure you want to update this Customer?',
-                    customer: customer
+                    customer: updateCustomer
                 };
 
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function (result) {
-                customerFactory.updateCustomer(customer).success(function () {
+                customerFactory.updateCustomer(updateCustomer).success(function () {
                     $location.path('/intCustomerView');
                     $state.go($state.current.name, $state.params, { reload: true });
-                    $scope.information = "Updated Customer: " + customer.Id + ' ' + customer.CustomerCode + ' ' + customer.CustomerName;
+                    $scope.information = "Updated Customer: " + updateCustomer.Id + ' ' + updateCustomer.CustomerCode + ' ' + updateCustomer.CustomerName;
                 }).error(function (data) {
                     $scope.error = "An Error has occured while updating customer! " + data.ExceptionMessage;
                 });
@@ -252,6 +254,7 @@ angular.module('myApp.intCustomerView', ['ui.bootstrap'])
                     CustomerCode: null,
                     CustomerName: null,
                     CustomerEmail: null,
+                    Active: null,
                     Created: null,
                     CreatedBy: null,
                     Updated: null,
