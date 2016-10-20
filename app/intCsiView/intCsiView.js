@@ -131,7 +131,25 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
         // Copy csi
         // ************************
         $scope.copyCsi = function(csi) {
-            var csiToIns = csi.Id + ' ' + csi.Engagement,
+            var newCsi = {
+                Id_Customer: csi.Id_Customer,
+                Id_Status: csi.Id_Status,
+                ClientName: csi.ClientName,
+                ClientEmail: csi.ClientEmail,
+                InitiatedByClient: csi.InitiatedByClient,
+                AccountManagerName: csi.AccountManagerName,
+                AccountManagerEmail: csi.AccountManagerEmail,
+                Engagement: csi.Engagement,
+                ProjectNumber: csi.ProjectNumber,
+                DeliveryUnit: csi.DeliveryUnit,
+                InitiationDate: csi.InitiationDate,
+                Consultants: csi.Consultants,
+                PlannedDateForFollowUp: csi.PlannedDateForFollowUp,
+                FollowedUpDate: csi.FollowedUpDate,
+                FollowedUpByClient: csi.FollowedUpByClient,
+                SimpleCSI: csi.SimpleCSI};
+
+        var csiToIns = csi.Id + ' ' + csi.Engagement,
 
                 // ************************
                 // Modal for CSI insert
@@ -140,23 +158,23 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    intClateUrl: '/app/intCsiView/intCsiCopyModal.html'
+                    templateUrl: '/app/intCsiView/intCsiCopyModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
                     actionButtonText: 'Copy CSI',
                     headerText: 'Make a copy of CSI: ' + csiToIns + '?',
                     bodyText: 'Are you sure you want to Copy this CSI?',
-                    csi: csi
+                    csi: newCsi
                 };
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function(result) {
-                csiFactory.addCsi(csi).success(function() {
+                csiFactory.addCsi(newCsi).success(function() {
                         $location.path('/intCsiView');
-                        $state.go($state.current.name, $state.params, { reload: true });                    })
-                    .error(function(data) {
+                        $state.go($state.current.name, $state.params, { reload: true });
+                }).error(function(data) {
                         $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
-                    });
+                });
             });
         };
 
@@ -196,6 +214,25 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
         // update Csi
         // ************************
         $scope.updateCsi = function(csi) {
+            var updateCsi = {
+                Id: csi.Id,
+                Id_Customer: csi.Id_Customer,
+                Id_Status: csi.Id_Status,
+                ClientName: csi.ClientName,
+                ClientEmail: csi.ClientEmail,
+                InitiatedByClient: csi.InitiatedByClient,
+                AccountManagerName: csi.AccountManagerName,
+                AccountManagerEmail: csi.AccountManagerEmail,
+                Engagement: csi.Engagement,
+                ProjectNumber: csi.ProjectNumber,
+                DeliveryUnit: csi.DeliveryUnit,
+                InitiationDate: csi.InitiationDate,
+                Consultants: csi.Consultants,
+                PlannedDateForFollowUp: csi.PlannedDateForFollowUp,
+                FollowedUpDate: csi.FollowedUpDate,
+                FollowedUpByClient: csi.FollowedUpByClient,
+                SimpleCSI: csi.SimpleCSI};
+
             var csiToUpd = csi.Id + ' ' + csi.Engagement,
 
                 // ************************
@@ -212,11 +249,11 @@ angular.module('myApp.intCsiView', ['ui.bootstrap'])
                     actionButtonText: 'Update CSI',
                     headerText: 'Update ' + csiToUpd + '?',
                     bodyText: 'Are you sure you want to update this CSI?',
-                    csi: csi
+                    csi: updateCsi
                 };
 
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function(result) {
-                csiFactory.updateCsi(csi).success(function() {
+                csiFactory.updateCsi(updateCsi).success(function() {
                     $location.path('/intCsiView');
                     $state.go($state.current.name, $state.params, { reload: true });
                 })
