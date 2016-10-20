@@ -1,20 +1,20 @@
 'use strict';
-angular.module('myApp.customerView', [])
+angular.module('myApp.intCustomerView', [])
 
 .config(['$stateProvider', function ($stateProvider)
     {
 
     $stateProvider
-        .state('customerView', {
-        url: '/customerView',
-        templateUrl: 'customerView/customerView.html',
+        .state('intCustomerView', {
+        url: '/intCustomerView',
+        templateUrl: 'intCustomerView/intCustomerView.html',
     controller: 'customerCtrl'
     });
 
     }])
 
 .controller("customerCtrl", ['$scope', '$http', function ($scope, $http) {
-    
+
     $scope.pageTitle = 'Customers';
 
     $http.get('http://a01c01101c/CSIService/api/GetCustomerList')

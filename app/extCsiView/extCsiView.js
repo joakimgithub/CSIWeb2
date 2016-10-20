@@ -1,12 +1,12 @@
-angular.module('myApp.csiCrudView', ['ui.bootstrap'])
+angular.module('myApp.extCsiView', ['ui.bootstrap'])
 
 .config(['$stateProvider', function ($stateProvider)
 {
 
     $stateProvider
-        .state('csiCrudView', {
-        url: '/csiCrudView/:id',
-        templateUrl: 'csiCrudView/csiCrudView.html',
+        .state('extCsiView', {
+        url: '/extCsiView/:id',
+        templateUrl: 'extCsiView/extCsiView.html',
     controller: 'csiController'
     });
 
@@ -18,7 +18,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
             backdrop: true,
             keyboard: true,
             modalFade: true,
-            templateUrl: '/app/csiCrudView/Modal.html'
+            templateUrl: '/app/extCsiView/Modal.html'
         },
         modalOptions = {
             closeButtonText: 'Close',
@@ -140,7 +140,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/csiCrudView/csiCopyModal.html'
+                    templateUrl: '/app/extCsiView/csiCopyModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -152,7 +152,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function(result) {
                 csiFactory.addCsi(csi).success(function() {
-                        $location.path('/CsiCrudView');
+                        $location.path('/extCsiView');
                         $route.reload();
                     })
                     .error(function(data) {
@@ -173,7 +173,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/csiCrudView/csiInsertModal.html'
+                    templateUrl: '/app/extCsiView/csiInsertModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -185,7 +185,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function(result) {
                 csiFactory.addCsi(csi).then(function() {
-                    $location.path('/CsiCrudView');
+                    $location.path('/extCsiView');
                 }).error(function(data) {
                         $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
                 });
@@ -205,7 +205,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/csiCrudView/csiUpdateModal.html'
+                    templateUrl: '/app/extCsiView/csiUpdateModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -217,7 +217,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function(result) {
                 csiFactory.updateCsi(csi).then(function() {
-                    $location.path('/CsiCrudView');
+                    $location.path('/extCsiView');
                 })
                 .error(function(data) {
                     $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
@@ -238,7 +238,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/csiCrudView/csiDeleteModal.html'
+                    templateUrl: '/app/extCsiView/csiDeleteModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -250,7 +250,7 @@ angular.module('myApp.csiCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalDeleteDefaults, modalOptions).then(function(result) {
                 csiFactory.deleteCsi(csi).then(function() {
-                    $location.path('/CsiCrudView');
+                    $location.path('/extCsiView');
                 }).error(function(data) {
                     $scope.error = "An Error has occured while Loading csis! " + data.ExceptionMessage;
                 });

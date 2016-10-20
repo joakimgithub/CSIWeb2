@@ -1,11 +1,11 @@
-angular.module('myApp.customerCrudView', ['ui.bootstrap'])
+angular.module('myApp.extCustomerView', ['ui.bootstrap'])
 
 .config(['$stateProvider', function ($stateProvider)
 {
     $stateProvider
-        .state('customerCrudView', {
-        url: '/customerCrudView',
-        templateUrl: 'customerCrudView/customerCrudView.html',
+        .state('extCustomerView', {
+        url: '/extCustomerView',
+        templateUrl: 'extCustomerView/extCustomerView.html',
         controller: 'customerController'
     });
 }])
@@ -16,7 +16,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
             backdrop: true,
             keyboard: true,
             modalFade: true,
-            templateUrl: '/app/customerCrudView/Modal.html'
+            templateUrl: '/app/extCustomerView/Modal.html'
         },
         modalOptions = {
             closeButtonText: 'Close',
@@ -124,7 +124,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/customerCrudView/customerCopyModal.html'
+                    templateUrl: '/app/extCustomerView/customerCopyModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -136,7 +136,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
                 customerFactory.addCustomer(customer).success(function () {
-                    $location.path('/customerCrudView');
+                    $location.path('/extCustomerView');
                     //$route.reload();
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
@@ -156,7 +156,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/customerCrudView/customerInsertModal.html'
+                    templateUrl: '/app/extCustomerView/customerInsertModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -168,7 +168,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalInsertDefaults, modalOptions).then(function (result) {
                 customerFactory.addCustomer(customer).then(function () {
-                    $location.path('/customerCrudView');
+                    $location.path('/extCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while inserting customer! " + data.ExceptionMessage;
                 });
@@ -188,7 +188,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/customerCrudView/customerUpdateModal.html'
+                    templateUrl: '/app/extCustomerView/customerUpdateModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -200,7 +200,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalUpdateDefaults, modalOptions).then(function (result) {
                 customerFactory.updateCustomer(customer).then(function () {
-                    $location.path('/customerCrudView');
+                    $location.path('/extCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while updating customer! " + data.ExceptionMessage;
                 });
@@ -220,7 +220,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
                     backdrop: true,
                     keyboard: true,
                     modalFade: true,
-                    templateUrl: '/app/customerCrudView/customerDeleteModal.html'
+                    templateUrl: '/app/extCustomerView/customerDeleteModal.html'
                 },
                 modalOptions = {
                     closeButtonText: 'Cancel',
@@ -232,7 +232,7 @@ angular.module('myApp.customerCrudView', ['ui.bootstrap'])
 
             modalService.showModal(modalDeleteDefaults, modalOptions).then(function (result) {
                 customerFactory.deleteCustomer(customer).then(function () {
-                    $location.path('/customerCrudView');
+                    $location.path('/extCustomerView');
                 }).error(function (data) {
                     $scope.error = "An Error has occured while deleting customer! " + data.ExceptionMessage;
                 });

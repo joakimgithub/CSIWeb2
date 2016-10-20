@@ -1,9 +1,9 @@
     <h1 ng-bind="pageTitle"></h1>
 
     <div class="input-group">
-        <input type="text" 
+        <input type="text"
                ng-model="searchText"
-               class="form-control" 
+               class="form-control"
                placeholder="Enter search text" >
         <span class="input-group-addon" id="basic-addon1">
             <i class="glyphicon glyphicon-search"></i>
@@ -50,7 +50,7 @@
         </tr>
         <tr class="animate"
             ng-repeat="customer in customers | filter: searchText | orderBy:sortBy:sortDescending ">
-            <td><a ng-href="#!/csiCrudView/?id={{customer.Id}}" ng-bind="customer.CustomerName"></a></td>
+            <td><a ng-href="#!/intCsiView/?id={{customer.Id}}" ng-bind="customer.CustomerName"></a></td>
             <td ng-bind="customer.CreatedTime | date:'yyyy-MM-dd hh:mm'"></td>
             <td ng-bind="customer.CreatedBy"></td>
             <td ng-bind="customer.Active"></td>
