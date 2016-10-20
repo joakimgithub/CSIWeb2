@@ -1,60 +1,79 @@
-'use strict';
+(function () {
+    'use strict';
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
+    'ngCookies',
     'ui.router',
     'ngAnimate',
-    'myApp.welcomeView',
+    //'myApp.welcomeView',
     'myApp.extCustomerView',
     'myApp.extCustomerCsisView',
     'myApp.extCsiView',
     'myApp.intCustomerView',
     'myApp.intCsiView'
 ])
+.config(config)
+.controller(vm)
+.run(run);
 
-.controller('appController', function($scope, $route, $stateParams, $location) {
+controller('appController', function($scope, $route, $stateParams, $location) {
     $scope.$route = $route;
     $scope.$location = $location;
     $scope.$stateParams = $stateParams;
 })
 
-.config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider)
-    {
-        var currentUser =
-            { 'name': 'Ali Adravi', 'role': 'admin', 'age': 33, 'salary': 123400 }
-        ;
+config.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+function config($locationProvider, $stateProvider, $urlRouterProvider)
+{
+    var currentUser =
+        { 'name': 'Ali Adravi', 'role': 'admin', 'age': 33, 'salary': 123400 };
 
-        $stateProvider
-            .state('app', {
-              abstract: true,
-              // ...
-              data: {
-                requireLogin: true // this property will apply to all children of 'app'
-              }
-            })
-            .state('app.dashboard', {
-              // child state of `app`
-              // requireLogin === true
-            })
+//    $stateProvider
+//    .state('welcomeView', {
+//        url: '/welcomeView',
+//        controller: 'HomeController',
+//        templateUrl: 'welcomeView/welcomeView.html',
+//        controllerAs: 'vm'
+//    })
+//    .state('login', {
+//        url: '/loginView',
+//        controller: 'loginController',
+//        templateUrl: 'loginView/loginView.html',
+//        controllerAs: 'vm'
+//    })
+//    .state('registerView', {
+//        controller: 'registerController',
+//        url: '/registerView',
+//        templateUrl: 'registerView/registerView.html',
+//        controllerAs: 'vm'
+//    })
 
-        $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('!');
 
-        if(currentUser.role === "user")
-            $urlRouterProvider.otherwise('/extCustomerView');
-        if(currentUser.role === "admin")
-            $urlRouterProvider.otherwise('/intCustomerView');
+    if(currentUser.role === "user")
+        $urlRouterProvider.otherwise('/extCustomerView');
+    if(currentUser.role === "admin")
+        $urlRouterProvider.otherwise('/intCustomerView');
+}
+
+run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
+function run($rootScope, $location, $cookieStore, $http) {
+    // keep user logged in after page refresh
+    $rootScope.globals = $cookieStore.get('globals') || {};
+    if ($rootScope.globals.currentUser) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
     }
-])
+
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        // redirect to login page if not logged in and trying to access a restricted page
+        var restrictedPage = $.inArray($location.path(), ['login', 'register']) === -1;
+        var loggedIn = $rootScope.globals.currentUser;
+        if (restrictedPage && !loggedIn) {
+            $location.path('login');
+        }
+    });
+}
 
 
-.run(function ($rootScope) {
-  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-    var requireLogin = toState.data.requireLogin;
-
-    if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
-      event.preventDefault();
-      // get me a login modal!
-    }
-  });
-
-});
+})();
