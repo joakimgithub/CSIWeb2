@@ -40,9 +40,9 @@ angular.module('myApp', [
         $locationProvider.hashPrefix('!');
 
         if(currentUser.role === "user")
-            $urlRouterProvider.otherwise('/intCustomerView');
-        if(currentUser.role === "admin")
             $urlRouterProvider.otherwise('/extCustomerView');
+        if(currentUser.role === "admin")
+            $urlRouterProvider.otherwise('/intCustomerView');
     }
 ])
 
