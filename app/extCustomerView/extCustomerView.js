@@ -1,13 +1,13 @@
 'use strict';
-angular.module('myApp.intCustomerView', [])
+angular.module('myApp.extCustomerView', [])
 
 .config(['$stateProvider', function ($stateProvider)
     {
 
     $stateProvider
-        .state('intCustomerView', {
-        url: '/intCustomerView',
-        templateUrl: 'intCustomerView/intCustomerView.html',
+        .state('extCustomerView', {
+        url: '/extCustomerView',
+        templateUrl: 'extCustomerView/extCustomerView.html',
     controller: 'customerCtrl'
     });
 
