@@ -1,39 +1,44 @@
-   <div data-ng-app="myApp" data-ng-controller="myAppCtrl as vm">
-        <h3> Test Web API 2 Values Controller</h3>
-
-        <div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div data-ng-app="myApp" data-ng-controller="homeViewController as vm">
+      <div class="container">
+          <img alt="Brand" src="assets/img/Sogeti-liten.png" class="img-responsive">
+          <br>
+<!--          <h3>Please login or register new user</h3>-->
+              <form class="navbar-form navbar-left">
+                  <div class="form-group" >
+                      <input type="text" placeholder="email" class="form-control"
+                             data-ng-model="vm.loginUserData.userName">
+                  </div>
+                  <div class="form-group">
+                      <input type="password" placeholder="password" class="form-control"
+                             data-ng-model="vm.loginUserData.password">
+                  </div>
+                  <input type="button" id="logniUser" value="Sign in" data-ng-click="vm.loginUser()" class="btn btn-success"/>
+                  <br><br>
+                  <a class="btn btn-primary btn" href="#!/registerView" role="button">Register &raquo;</a>
+              </form>
+          <div>
             <span data-ng-show="vm.isRegistered">User Registered Successfully</span><br />
             <span data-ng-show="vm.isLoggedIn">Hello : {{vm.userName}}</span><br />
             <span data-ng-show="vm.isLoggedIn">Your Bearer Token is : {{vm.bearerToken}}</span>
-        </div>
-        <br />
+          </div>
+      </div>
+  </div>
+</div>
+Only for test>>>
+<a class="btn btn-primary btn" href="#!/extCustomerView" role="button">External &raquo;</a>
+<a class="btn btn-primary btn" href="#!/intCustomerView" role="button">Internal &raquo;</a>
+<br><br>
 
-        <span data-ng-hide="vm.isRegistered">Register</span>
-        <div data-ng-hide="vm.isRegistered">
-            <input type="text" name="email" placeholder="Email" data-ng-model="vm.registerUserData.email" />
-            <input name="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
-            <input name="confirmPassword" placeholder="Password" data-ng-model="vm.registerUserData.confirmPassword" />
-            <input type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
-        </div>
+<div data-ng-app="myApp" data-ng-controller="homeViewController as vm">
 
-        <br/>
-        <span>Login</span>
-        <div>
-            <input type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
-            <input name="password" placeholder="Password" data-ng-model="vm.loginUserData.password" />
-            <input type="button" id="logniUser" value="Login" data-ng-click="vm.loginUser()" />
-        </div>
-
-<!--        <button id="getValues" data-ng-click="vm.getValues()">Get Values</button>-->
-
-<!--
-        <ul>
-            <li data-ng-repeat="v in vm.values">
-                <div>
-                    <strong>{{v}}</strong>
-                </div>
-            </li>
-        </ul>
--->
-
+    <span data-ng-hide="vm.isRegistered">Register</span>
+    <div data-ng-hide="vm.isRegistered">
+        <input type="text" name="email" placeholder="Email" data-ng-model="vm.registerUserData.email" />
+        <input name="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
+        <input name="confirmPassword" placeholder="Password" data-ng-model="vm.registerUserData.confirmPassword" />
+        <input type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
     </div>
+</div>
+

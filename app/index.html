@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="css/site.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -34,31 +33,10 @@
               <a class="navbar-brand" >Sogeti CSIWeb - Quality is the way to go!</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-              <form class="navbar-form navbar-right">
-<!--
-                  <div class="form-group">
-                      <input type="text" placeholder="Email" class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <input type="password" placeholder="Password" class="form-control">
-                  </div>
-                  <button type="submit" class="btn btn-success">Sign in</button>
--->
-              </form>
+
           </div><!--/.navbar-collapse -->
       </div>
   </nav>
-
-  <!-- Main jumbotron for a primary marketing message or call to action -->
-<!--  <div class="jumbotron">
-      <div class="container">
-          <br><br><br>
-          <img alt="Brand" src="assets/img/Sogeti-liten.png" class="img-responsive">-->
-          <!--<h2>CSI - Customer Satisfaction Index</h2>-->
-<!--          <h3>Quality is the way to go!</h3> QQCSI_top -->
-<!--          <p><a class="btn btn-primary btn-sm" href="#!/customerView" role="button">Home &raquo;</a></p>-->
-<!--      </div>
-  </div>-->
 
   <div ui-view></div>
 
@@ -92,10 +70,12 @@
     <script src="extCsiView/extCsiView.js"></script>
     <script src="extCustomerView/extCustomerView.js"></script>
     <script src="homeView/homeView.js"></script>
+    <script src="homeView/userAccountService.js"></script>
+<!--
+    <script src="homeView/registerView.js"></script>
+    <script src="homeView/flash.service.js"></script>
     <script src="loginView/loginView.js"></script>
-    <script src="registerView/registerView.js"></script>
-    <script src="app-services/userAccountService.js"></script>
-    <script src="app-services/flash.service.js"></script>
+-->
 
     <!-- Real user service that uses an api -->
     <!-- <script src="app-services/user.service.js"></script> -->

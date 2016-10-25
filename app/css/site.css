@@ -68,3 +68,12 @@ input[type="text"]:disabled.ng-valid{
     background: rgba( 0, 0, 0, .3 ) url('../assets/img/loading.gif') 50% 50% no-repeat;
 }
 
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.flash-message {
+    margin-top: 20px;
+}
