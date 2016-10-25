@@ -1,0 +1,39 @@
+   <div data-ng-app="myApp" data-ng-controller="myAppCtrl as vm">
+        <h3> Test Web API 2 Values Controller</h3>
+
+        <div>
+            <span data-ng-show="vm.isRegistered">User Registered Successfully</span><br />
+            <span data-ng-show="vm.isLoggedIn">Hello : {{vm.userName}}</span><br />
+            <span data-ng-show="vm.isLoggedIn">Your Bearer Token is : {{vm.bearerToken}}</span>
+        </div>
+        <br />
+
+        <span data-ng-hide="vm.isRegistered">Register</span>
+        <div data-ng-hide="vm.isRegistered">
+            <input type="text" name="email" placeholder="Email" data-ng-model="vm.registerUserData.email" />
+            <input name="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
+            <input name="confirmPassword" placeholder="Password" data-ng-model="vm.registerUserData.confirmPassword" />
+            <input type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
+        </div>
+
+        <br/>
+        <span>Login</span>
+        <div>
+            <input type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
+            <input name="password" placeholder="Password" data-ng-model="vm.loginUserData.password" />
+            <input type="button" id="logniUser" value="Login" data-ng-click="vm.loginUser()" />
+        </div>
+
+<!--        <button id="getValues" data-ng-click="vm.getValues()">Get Values</button>-->
+
+<!--
+        <ul>
+            <li data-ng-repeat="v in vm.values">
+                <div>
+                    <strong>{{v}}</strong>
+                </div>
+            </li>
+        </ul>
+-->
+
+    </div>

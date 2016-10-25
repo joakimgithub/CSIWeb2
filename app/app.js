@@ -3,10 +3,8 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-    'ngCookies',
     'ui.router',
     'ngAnimate',
-    //'myApp.welcomeView',
     'myApp.extCustomerView',
     'myApp.extCustomerCsisView',
     'myApp.extCsiView',
@@ -14,65 +12,96 @@ angular.module('myApp', [
     'myApp.intCsiView'
 ])
 .config(config)
-.controller(vm)
-.run(run);
+.controller(myAppCtrl);
 
-controller('appController', function($scope, $route, $stateParams, $location) {
-    $scope.$route = $route;
-    $scope.$location = $location;
-    $scope.$stateParams = $stateParams;
-})
 
 config.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
 function config($locationProvider, $stateProvider, $urlRouterProvider)
 {
-    var currentUser =
-        { 'name': 'Ali Adravi', 'role': 'admin', 'age': 33, 'salary': 123400 };
+//    var currentUser =
+//        { 'name': 'Ali Adravi', 'role': 'admin', 'age': 33, 'salary': 123400 };
 
-//    $stateProvider
-//    .state('welcomeView', {
-//        url: '/welcomeView',
-//        controller: 'HomeController',
-//        templateUrl: 'welcomeView/welcomeView.html',
-//        controllerAs: 'vm'
-//    })
-//    .state('login', {
-//        url: '/loginView',
-//        controller: 'loginController',
-//        templateUrl: 'loginView/loginView.html',
-//        controllerAs: 'vm'
-//    })
-//    .state('registerView', {
-//        controller: 'registerController',
-//        url: '/registerView',
-//        templateUrl: 'registerView/registerView.html',
-//        controllerAs: 'vm'
-//    })
+    // default route
 
-    $locationProvider.hashPrefix('!');
+    $stateProvider
+        .state('homeView', {
+            url: '/homeView',
+            templateUrl: 'homeView/homeView.html',
+            controller: 'myAppCtrl',
+            controllerAs: 'vm'
+        })
+        .state('loginView', {
+            url: '/loginView',
+            templateUrl: 'loginView/loginView.html',
+            controller: 'loginController',
+            controllerAs: 'vm'
+        })
+        .state('registerView', {
+            url: '/registerView',
+            templateUrl: 'registerView/registerView.html',
+            controller: 'registerController',
+            controllerAs: 'vm'
+        });
 
-    if(currentUser.role === "user")
-        $urlRouterProvider.otherwise('/extCustomerView');
-    if(currentUser.role === "admin")
-        $urlRouterProvider.otherwise('/intCustomerView');
+        $locationProvider.hashPrefix('!');
+        $urlRouterProvider.otherwise("/homeView");
+
+//    if(currentUser.role === "user")
+//        $urlRouterProvider.otherwise('/extCustomerView');
+//    if(currentUser.role === "admin")
+//        $urlRouterProvider.otherwise('/intCustomerView');
 }
 
-run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
-function run($rootScope, $location, $cookieStore, $http) {
-    // keep user logged in after page refresh
-    $rootScope.globals = $cookieStore.get('globals') || {};
-    if ($rootScope.globals.currentUser) {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
-    }
 
-    $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        // redirect to login page if not logged in and trying to access a restricted page
-        var restrictedPage = $.inArray($location.path(), ['login', 'register']) === -1;
-        var loggedIn = $rootScope.globals.currentUser;
-        if (restrictedPage && !loggedIn) {
-            $location.path('login');
-        }
-    });
+var controllerId = 'myAppCtrl';
+angular.module('myApp').controller(controllerId,
+    ['userAccountService',  myAppCtrl]);
+function myAppCtrl(userAccountService) {
+    // Using 'Controller As' syntax, so we assign this to the vm variable (for viewmodel).
+    var vm = this;
+    // Bindable properties and functions are placed on vm.
+    vm.title = 'myAppCtrl';
+    vm.isRegistered = false;
+    vm.isLoggedIn = false;
+    vm.registerUserData = {
+        email: "",
+        password: "",
+        confirmPassword: "",
+    };
+
+    vm.loginUserData = {
+        userName: "",
+        password: "",
+    };
+
+    vm.registerUser = registerUser;
+    vm.loginUser = loginUser;
+    //vm.getValues = getValues;
+    function registerUser() {
+        userAccountService.registerUser(vm.registerUserData).then(function (data) {
+            vm.isRegistered = true;
+        }, function (error, status) {
+            vm.isRegistered = false;
+            console.log(status);
+        });
+    }
+    function loginUser() {
+        userAccountService.loginUser(vm.loginUserData).then(function (data) {
+            vm.isLoggedIn = true;
+            vm.userName = data.userName;
+            vm.bearerToken = data.access_token;
+        }, function (error, status) {
+            vm.isLoggedIn = false;
+            console.log(status);
+        });
+    }
+//example
+//    function getValues() {
+//        userAccountService.getValues().then(function (data) {
+//            vm.values = data;
+//            console.log('back... with success');
+//        });
+//    }
 }
 
 
